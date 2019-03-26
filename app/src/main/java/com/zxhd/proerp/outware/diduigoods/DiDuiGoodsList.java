@@ -18,6 +18,7 @@ public class DiDuiGoodsList {
     private String repo_name;
     private int judge;
     private int id;
+    private int gteid;
     private int pici;
     private int area_id;
     private int sums;
@@ -25,7 +26,7 @@ public class DiDuiGoodsList {
     private String district_number;
     private String area_number;
 
-    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, int sums, String list, String district_number, String area_number) {
+    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, int sums, String list, String district_number, String area_number,int gteid) {
         this.goodsid = goodsid;
         this.price = price;
         this.repo_name = repo_name;
@@ -37,6 +38,7 @@ public class DiDuiGoodsList {
         this.list = list;
         this.district_number = district_number;
         this.area_number = area_number;
+        this.gteid = gteid;
     }
 
     @Override
@@ -53,7 +55,16 @@ public class DiDuiGoodsList {
                 ", list='" + list + '\'' +
                 ", district_number='" + district_number + '\'' +
                 ", area_number='" + area_number + '\'' +
+                ", gteid='" + gteid + '\'' +
                 '}';
+    }
+
+    public int getGteid() {
+        return gteid;
+    }
+
+    public void setGteid(int gteid) {
+        this.gteid = gteid;
     }
 
     public int getGoodsid() {

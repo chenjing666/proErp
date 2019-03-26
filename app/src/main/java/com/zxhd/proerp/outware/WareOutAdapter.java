@@ -59,9 +59,11 @@ public class WareOutAdapter extends RecyclerView.Adapter<WareOutAdapter.ListView
         switch (status) {
             case 0:
                 holder.ll_status.setText("未出库");
+                holder.ll_status.setTextColor(context.getResources().getColor(R.color.red));
                 break;
             case 1:
                 holder.ll_status.setText("部分出库");
+                holder.ll_status.setTextColor(context.getResources().getColor(R.color.green));
                 break;
             case 2:
                 holder.ll_status.setText("全部出库");

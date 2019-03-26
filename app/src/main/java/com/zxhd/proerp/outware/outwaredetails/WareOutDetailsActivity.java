@@ -52,6 +52,7 @@ public class WareOutDetailsActivity extends AppCompatActivity {
     private int judge;
     private int color_spec;
     private int state;
+    private WareOutDetailsList mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class WareOutDetailsActivity extends AppCompatActivity {
     public void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(WareOutDetailsActivity.this);
         builder.setIcon(R.drawable.seal_logo);
-        builder.setTitle("请输入用户名和密码");
+        builder.setTitle("地堆推荐！");
         //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
         View view = LayoutInflater.from(WareOutDetailsActivity.this).inflate(R.layout.didui_details, null);
         //    设置我们自己定义的布局文件作为弹出框的Content
@@ -129,10 +130,13 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                 intent.putExtra("goodsid", goodsid + "");
                 intent.putExtra("judge", judge + "");
                 intent.putExtra("respository_id", respository_id + "");
+                intent.putExtra("outwarehouse_id", outwarehouse_id + "");
                 intent.putExtra("color_spec", color_spec + "");
                 intent.putExtra("cha", cha);
                 intent.putExtra("area_number", a);
+                intent.putExtra("outnumber", mData.getOutnumber());
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
     }
@@ -151,6 +155,7 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                 return;
             }
             msg = "";
+            mData=mList.get(position);
             goodsid = mList.get(position).getGoodsid();
             judge = mList.get(position).getJudge();
             color_spec = mList.get(position).getColor_spec();
