@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">proErp</string>
+    <string name="Login">登录</string>
+    <string name="phone_number">工号</string>
+    <string name="password">密码</string>
+    <string name="ware_out_num">出库需求单号</string>
+    <string name="status">状&#12288;&#12288;态</string>
+    <string name="type">类&#12288;&#12288;型</string>
+    <string name="create_user">创&#8194;建&#8194;人</string>
+    <string name="remark">备&#12288;&#12288;注</string>
+</resources>

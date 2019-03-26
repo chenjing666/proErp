@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="20dp"
+        android:columnCount="3"
+        android:rowCount="3">
+
+        <LinearLayout
+            android:id="@+id/lingliao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="领料单" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ruku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="入库单" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chuku"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="出库单" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/yiwei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="移位" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/baosun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="报损" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="更多" />
+        </LinearLayout>
+
+
+    </GridLayout>
+
+</LinearLayout>
