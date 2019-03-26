@@ -154,7 +154,7 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                 return;
             }
             msg = "";
-            mData=mList.get(position);
+            mData = mList.get(position);
             goodsid = mList.get(position).getGoodsid();
             judge = mList.get(position).getJudge();
             color_spec = mList.get(position).getColor_spec();
@@ -163,6 +163,13 @@ public class WareOutDetailsActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * 货位推荐
+     *
+     * @param goodsid
+     * @param judge
+     * @param color_spec
+     */
     private void getDiDuiDetails(int goodsid, int judge, int color_spec) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("offSet", nowPage + "");
@@ -179,28 +186,30 @@ public class WareOutDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
+                Log.e("response==", response);
                 try {
                     JSONObject object = new JSONObject(response);
-                    String result=object.getString("result");
-                    String msg=object.getString("msg");
-                    if(result.equals("error")){
-                        Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    String result = object.getString("result");
+                    String msgTwo = object.getString("msg");
+                    if (result.equals("error")) {
+                        Toast.makeText(WareOutDetailsActivity.this, msgTwo, Toast.LENGTH_SHORT).show();
                         return;
+                    } else {
+                        JSONArray jsonArray = new JSONArray(object.getString("items"));
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject obj = jsonArray.getJSONObject(i);
+                            String repo_name = obj.getString("repo_name");//仓库
+                            String district_number = obj.getString("district_number");//区域
+                            String area_number = obj.getString("area_number");//地堆
+                            String list = obj.getString("list");//入库单号
+                            int pici = obj.getInt("pici");//批次
+                            int sums = obj.getInt("sums");//在架数量
+                            msg = msg + "地堆编码：" + area_number + "入库单号：" + list + "批次：" + pici + "在库数量：" + sums + "\n";
+                        }
+                        Message obtain = Message.obtain();
+                        obtain.what = 1;
+                        handler.sendMessage(obtain);
                     }
-                    JSONArray jsonArray = new JSONArray(object.getString("items"));
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject obj = jsonArray.getJSONObject(i);
-                        String repo_name = obj.getString("repo_name");//仓库
-                        String district_number = obj.getString("district_number");//区域
-                        String area_number = obj.getString("area_number");//地堆
-                        String list = obj.getString("list");//入库单号
-                        int pici = obj.getInt("pici");//批次
-                        int sums = obj.getInt("sums");//在架数量
-                        msg = msg + "地堆编码：" + area_number + "入库单号：" + list + "批次：" + pici + "在库数量：" + sums + "\n";
-                    }
-                    Message obtain = Message.obtain();
-                    obtain.what = 1;
-                    handler.sendMessage(obtain);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -231,9 +240,9 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject object = new JSONObject(response);
-                    String result=object.getString("result");
-                    String msg=object.getString("msg");
-                    if(result.equals("error")){
+                    String result = object.getString("result");
+                    String msg = object.getString("msg");
+                    if (result.equals("error")) {
                         Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
                         return;
                     }

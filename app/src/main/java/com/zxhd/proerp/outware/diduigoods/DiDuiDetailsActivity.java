@@ -48,6 +48,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
     private int outnumber;
     private DiDuiGoodsList mData;
     private AlertDialog dialog;
+    private int b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         cha = intent.getIntExtra("cha", 0);//剩余下架数量
         respository_id = intent.getStringExtra("respository_id");
         outwarehouse_id = intent.getStringExtra("outwarehouse_id");
-        outnumber = intent.getIntExtra("outnumber",0);
+        outnumber = intent.getIntExtra("outnumber", 0);
         color_spec = intent.getStringExtra("color_spec");
         area_number = intent.getStringExtra("area_number");
         progressBar = findViewById(R.id.loading_didui_goods);
@@ -132,7 +133,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String a = details_didui.getText().toString().trim();
-                int b = Integer.parseInt(a);
+                b = Integer.parseInt(a);
                 if (a.isEmpty() || b == 0) {
                     Toast.makeText(DiDuiDetailsActivity.this, "请输入合理数量！", Toast.LENGTH_SHORT).show();
                     return;
@@ -142,18 +143,22 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 下架操作
+     */
     private void doDown() {
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_id", mData.getArea_id()+"");
-        paramsMap.put("outnumber", outnumber+"");
-        paramsMap.put("gteid", mData.getGteid()+"");
-        paramsMap.put("pici", mData.getPici()+"");
+        paramsMap.put("area_id", mData.getArea_id() + "");
+        paramsMap.put("outnumber", b + "");
+        paramsMap.put("gteid", mData.getGteid() + "");
+        paramsMap.put("pici", mData.getPici() + "");
         paramsMap.put("outwarehouse_id", outwarehouse_id);
-        paramsMap.put("judge", mData.getJudge()+"");
+        paramsMap.put("judge", mData.getJudge() + "");
         paramsMap.put("district_number", mData.getDistrict_number());
         paramsMap.put("repo_name", mData.getRepo_name());
-        paramsMap.put("goodsid", mData.getGteid()+"");
+        paramsMap.put("goodsid", mData.getGoodsid() + "");
         paramsMap.put("color_spec", color_spec);
+        Log.e("paramsMap==", paramsMap.toString());
         OkhttpUtil.okHttpPost(Api.GOODS_DIDUI_DOWM, paramsMap, new CallBackUtil.CallBackString() {
             @Override
             public void onFailure(Call call, Exception e) {
@@ -165,10 +170,10 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                 Log.e("response", response);
                 try {
                     JSONObject object = new JSONObject(response);
-                    String msg=object.getString("msg");
-                    String result=object.getString("result");
+                    String msg = object.getString("msg");
+                    String result = object.getString("result");
                     Toast.makeText(DiDuiDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    if(result.equals("ok")){
+                    if (result.equals("ok")) {
                         dialog.dismiss();
                         finish();
                     }
@@ -179,6 +184,15 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 获取产品所在地堆及详情
+     *
+     * @param goodsid
+     * @param judge
+     * @param respository_id
+     * @param color_spec
+     * @param area_number
+     */
     private void getDiDuiGoodsDetails(String goodsid, String judge, String respository_id, String color_spec, String area_number) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("goodsid", goodsid);
@@ -197,9 +211,9 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                 Log.e("response==", response);
                 try {
                     JSONObject object = new JSONObject(response);
-                    String result=object.getString("result");
-                    String msg=object.getString("msg");
-                    if(result.equals("error")){
+                    String result = object.getString("result");
+                    String msg = object.getString("msg");
+                    if (result.equals("error")) {
                         Toast.makeText(DiDuiDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
                         finish();
                         return;

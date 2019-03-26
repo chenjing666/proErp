@@ -90,6 +90,9 @@ public class WareOutActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * 获取出库需求单列表
+     */
     private void getMList() {
         if (mList != null) {
             mList.clear();
