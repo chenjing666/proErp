@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zxhd.proerp.R;
+import com.zxhd.proerp.outware.outwaredetails.WareOutDetailsAdapter;
 
 import java.util.List;
 
@@ -58,6 +59,15 @@ public class DiDuiGoodsAdapter extends RecyclerView.Adapter<DiDuiGoodsAdapter.Li
                 holder.judge.setText("产品");
                 break;
         }
+        //item点击事件
+        if (onItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -85,5 +95,18 @@ public class DiDuiGoodsAdapter extends RecyclerView.Adapter<DiDuiGoodsAdapter.Li
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+    // ###################################   item的点击事件（接口回调） ##############
+    public interface OnItemClickListener {
+
+        void onItemClick(View view, int position);
+
+    }
+
+    private DiDuiGoodsAdapter.OnItemClickListener onItemClickListener;
+
+    //对外提供一个监听的方法
+    public void setOnItemClickListener(DiDuiGoodsAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

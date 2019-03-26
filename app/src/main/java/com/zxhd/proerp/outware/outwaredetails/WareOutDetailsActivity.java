@@ -239,12 +239,12 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                         int goodsid = obj.getInt("goodsid");
                         int color_spec = obj.getInt("color_spec");
                         int cha = obj.getInt("cha");
-                        WareOutDetailsList wareOutDetailsList = new WareOutDetailsList(id, goodsnumber, goodsname, judge, twotypename, goodsspec, colorNum, metering_name, metering_abbreviation, outnumber, downnumber, haveout, goodsid, color_spec,cha);
+                        WareOutDetailsList wareOutDetailsList = new WareOutDetailsList(id, goodsnumber, goodsname, judge, twotypename, goodsspec, colorNum, metering_name, metering_abbreviation, outnumber, downnumber, haveout, goodsid, color_spec, cha);
                         mList.add(wareOutDetailsList);
-                        Message obtain = Message.obtain();
-                        obtain.what = 0;
-                        handler.sendMessage(obtain);
                     }
+                    Message obtain = Message.obtain();
+                    obtain.what = 0;
+                    handler.sendMessage(obtain);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

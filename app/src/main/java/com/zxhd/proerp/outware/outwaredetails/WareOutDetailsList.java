@@ -15,7 +15,7 @@ public class WareOutDetailsList {
     private int haveout;//已出库
     private int goodsid;//
     private int color_spec;//
-    private int cha;//还需出库数量
+    private int cha;//剩余下架数量
 
     public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha) {
         this.id = id;

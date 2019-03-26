@@ -124,12 +124,12 @@ public class WareOutActivity extends AppCompatActivity {
                         int ll_status = obj.getInt("state");
                         int respository_id = obj.getInt("respository_id");
                         int state = obj.getInt("state");
-                        OutWareList outWareList = new OutWareList(ll_num, ll_num_lingliao, ll_time, ll_user_create, ll_ware, ll_id, ll_type, ll_status, ll_remark, ll_other, respository_id,state);
+                        OutWareList outWareList = new OutWareList(ll_num, ll_num_lingliao, ll_time, ll_user_create, ll_ware, ll_id, ll_type, ll_status, ll_remark, ll_other, respository_id, state);
                         mList.add(outWareList);
-                        Message obtain = Message.obtain();
-                        obtain.what = 0;
-                        handler.sendMessage(obtain);
                     }
+                    Message obtain = Message.obtain();
+                    obtain.what = 0;
+                    handler.sendMessage(obtain);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

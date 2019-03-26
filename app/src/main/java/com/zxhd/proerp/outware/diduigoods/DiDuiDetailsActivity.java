@@ -6,8 +6,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.zxhd.proerp.R;
@@ -42,10 +45,25 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         goodsid = intent.getStringExtra("goodsid");
         judge = intent.getStringExtra("judge");
-        cha = intent.getIntExtra("cha",0);
+        cha = intent.getIntExtra("cha", 0);//剩余下架数量
         respository_id = intent.getStringExtra("respository_id");
         color_spec = intent.getStringExtra("color_spec");
         area_number = intent.getStringExtra("area_number");
+        progressBar = findViewById(R.id.loading_didui_goods);
+        mRecyclerView = findViewById(R.id.recyclerView_didui_goods);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        diDuiGoodsAdapter = new DiDuiGoodsAdapter(this);
+        diDuiGoodsAdapter.setOnItemClickListener(listener);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(diDuiGoodsAdapter);
+
+        //返回
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         getDiDuiGoodsDetails(goodsid, judge, respository_id, color_spec, area_number);
     }
 
@@ -61,6 +79,12 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                 default:
                     break;
             }
+        }
+    };
+    private DiDuiGoodsAdapter.OnItemClickListener listener = new DiDuiGoodsAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+
         }
     };
 
@@ -79,21 +103,28 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                Log.e("response==",response);
+                Log.e("response==", response);
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONArray jsonArray = new JSONArray(object.getString("items"));
                     for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject obj = jsonArray.getJSONObject(i);
-//                        String repo_name = obj.getString("repo_name");//仓库
-//                        String district_number = obj.getString("district_number");//区域
-//                        String area_number = obj.getString("area_number");//地堆
-//                        String list = obj.getString("list");//入库单号
-//                        int pici = obj.getInt("pici");//批次
-//                        int sums = obj.getInt("sums");//在架数量
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        String repo_name = obj.getString("repo_name");//仓库
+                        String district_number = obj.getString("district_number");//区域
+                        String area_number = obj.getString("area_number");//地堆
+                        String list = obj.getString("list");//入库单号
+                        int goodsid = obj.getInt("goodsid");//
+                        int sums = obj.getInt("sums");//
+                        int pici = obj.getInt("pici");//
+                        int area_id = obj.getInt("area_id");//
+                        int id = obj.getInt("id");//
+                        int judge = obj.getInt("judge");//
+                        double price = obj.getDouble("price");
+                        DiDuiGoodsList diDuiGoodsList = new DiDuiGoodsList(goodsid, price, repo_name, judge, id, pici, area_id, sums, list, district_number, area_number);
+                        mList.add(diDuiGoodsList);
                     }
                     Message obtain = Message.obtain();
-                    obtain.what = 1;
+                    obtain.what = 0;
                     handler.sendMessage(obtain);
                 } catch (JSONException e) {
                     e.printStackTrace();
