@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,6 +181,12 @@ public class WareOutDetailsActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject object = new JSONObject(response);
+                    String result=object.getString("result");
+                    String msg=object.getString("msg");
+                    if(result.equals("error")){
+                        Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     JSONArray jsonArray = new JSONArray(object.getString("items"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
@@ -226,6 +231,12 @@ public class WareOutDetailsActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject object = new JSONObject(response);
+                    String result=object.getString("result");
+                    String msg=object.getString("msg");
+                    if(result.equals("error")){
+                        Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     JSONArray jsonArray = new JSONArray(object.getString("items"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);

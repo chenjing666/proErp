@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
@@ -109,6 +110,12 @@ public class WareOutActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject object = new JSONObject(response);
+                    String result=object.getString("result");
+                    String msg=object.getString("msg");
+                    if(result.equals("error")){
+                        Toast.makeText(WareOutActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     JSONArray jsonArray = new JSONArray(object.getString("items"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);

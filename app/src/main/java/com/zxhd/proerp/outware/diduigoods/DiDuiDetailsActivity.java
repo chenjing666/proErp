@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
-import com.zxhd.proerp.outware.outwaredetails.WareOutDetailsActivity;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -198,6 +197,13 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                 Log.e("response==", response);
                 try {
                     JSONObject object = new JSONObject(response);
+                    String result=object.getString("result");
+                    String msg=object.getString("msg");
+                    if(result.equals("error")){
+                        Toast.makeText(DiDuiDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
                     JSONArray jsonArray = new JSONArray(object.getString("items"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
