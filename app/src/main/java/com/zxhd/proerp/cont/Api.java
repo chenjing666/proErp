@@ -45,5 +45,17 @@ public class Api {
      * 到货列表
      */
     public static final String GOODS_WARE_IN_ARRIVAL = BASE_URL + "QydnInwarehouseController/queryInwarehouse";
+    /**
+     * 查询到货单详情
+     */
+    public static final String GOODS_WARE_IN_ARRIVAL_DETAILS = BASE_URL + "QydnInwarehouseController/queryallInwarehouse";
+    /**
+     * 推荐上架地堆
+     */
+    public static final String GOODS_WARE_IN_ARRIVAL_DETAILS_DIDUI_RECOMEMEND = BASE_URL + "upRespositoryArea/selAllTuiArea";
+    /**
+     * //地堆上架
+     */
+    public static final String GOODS_WARE_IN_UPGOODS = BASE_URL + "upRespositoryArea/upRespositoryArea";
 
 }

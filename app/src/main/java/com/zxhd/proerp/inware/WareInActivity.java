@@ -1,6 +1,7 @@
 package com.zxhd.proerp.inware;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
+import com.zxhd.proerp.inware.inwaredetails.WareInDetailsActivity;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -97,7 +99,13 @@ public class WareInActivity extends AppCompatActivity {
     private WareInAdapter.OnItemClickListener listener = new WareInAdapter.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-
+            WareInBean bean = mList.get(position);
+            //id=505&respository_id=1&name=拉菲草a
+            Intent intent = new Intent(WareInActivity.this, WareInDetailsActivity.class);
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("respository_id", bean.getRespository_id());
+            intent.putExtra("name", bean.getRespository_name());
+            startActivity(intent);
         }
     };
 
