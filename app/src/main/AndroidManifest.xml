@@ -14,17 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".outware.diduigoods.DiDuiDetailsActivity"></activity>
+        <activity android:name=".inware.inwaredetails.WareInDetailsActivity"></activity>
+        <activity android:name=".outware.diduigoods.DiDuiDetailsActivity" />
         <activity android:name=".outware.outwaredetails.WareOutDetailsActivity" />
         <activity android:name=".baosun.BaoSunActivity" />
         <activity android:name=".transfer.TransferActivity" />
         <activity android:name=".inware.WareInActivity" />
         <activity android:name=".outware.WareOutActivity" />
         <activity android:name=".lingliao.LingLiaoActivity" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

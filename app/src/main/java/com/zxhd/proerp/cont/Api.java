@@ -9,8 +9,10 @@ public class Api {
     public static final String LOGIN = BASE_URL + "login/doLogin";
     /**
      * 查询出库需求列表
+     * 只查询未处理完成的，之前完成的不查
      */
-    public static final String OUT_WARE_LIST = BASE_URL + "outwarehouseController/findAllOutwarehouse";
+//    public static final String OUT_WARE_LIST = BASE_URL + "outwarehouseController/findAllOutwarehouse";
+    public static final String OUT_WARE_LIST = BASE_URL + "outwarehouseController/findAllOutwarehouseApp";
     /**
      * 查询出库需求列表(领料)
      */
