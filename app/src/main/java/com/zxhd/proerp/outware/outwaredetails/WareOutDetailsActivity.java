@@ -56,7 +56,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     private int nowPage = 0;
     private int outwarehouse_id;
     private int respository_id;
-    private int cha;
+    private double cha;
     private String msg = "";//地堆信息
     private int goodsid;
     private int judge;

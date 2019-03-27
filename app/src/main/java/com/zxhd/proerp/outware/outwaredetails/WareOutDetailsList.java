@@ -10,18 +10,18 @@ public class WareOutDetailsList {
     private String colorNum;//颜色编码
     private String metering_name;//单位中文
     private String metering_abbreviation;//单位英文
-    private int outnumber;//需出库
-    private int downnumber;//已下架
-    private int haveout;//已出库
+    private double outnumber;//需出库
+    private double downnumber;//已下架
+    private double haveout;//已出库
     private int goodsid;//
     private int color_spec;//
-    private int waitnumber;//
-    private int cha2;//
-    private int cha;//剩余下架数量
-    private int wareoutnum;//输入的下架数量
+    private double waitnumber;//
+    private double cha2;//
+    private double cha;//剩余下架数量
+    private double wareoutnum;//输入的下架数量
     private String wareoutremark;//输入的批次
 
-    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha, int wareoutnum, String wareoutremark, int waitnumber, int cha2) {
+    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, double outnumber, double downnumber, double haveout, int goodsid, int color_spec, double cha, double wareoutnum, String wareoutremark, double waitnumber, double cha2) {
         this.id = id;
         this.goodsnumber = goodsnumber;
         this.goodsname = goodsname;
@@ -69,7 +69,7 @@ public class WareOutDetailsList {
                 '}';
     }
 
-    public int getWaitnumber() {
+    public double getWaitnumber() {
         return waitnumber;
     }
 
@@ -77,7 +77,7 @@ public class WareOutDetailsList {
         this.waitnumber = waitnumber;
     }
 
-    public int getCha2() {
+    public double getCha2() {
         return cha2;
     }
 
@@ -85,7 +85,7 @@ public class WareOutDetailsList {
         this.cha2 = cha2;
     }
 
-    public int getWareoutnum() {
+    public double getWareoutnum() {
         return wareoutnum;
     }
 
@@ -101,7 +101,7 @@ public class WareOutDetailsList {
         this.wareoutremark = wareoutremark;
     }
 
-    public int getCha() {
+    public double getCha() {
         return cha;
     }
 
@@ -197,7 +197,7 @@ public class WareOutDetailsList {
         this.metering_abbreviation = metering_abbreviation;
     }
 
-    public int getOutnumber() {
+    public double getOutnumber() {
         return outnumber;
     }
 
@@ -205,7 +205,7 @@ public class WareOutDetailsList {
         this.outnumber = outnumber;
     }
 
-    public int getDownnumber() {
+    public double getDownnumber() {
         return downnumber;
     }
 
@@ -213,7 +213,7 @@ public class WareOutDetailsList {
         this.downnumber = downnumber;
     }
 
-    public int getHaveout() {
+    public double getHaveout() {
         return haveout;
     }
 
