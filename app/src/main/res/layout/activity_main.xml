@@ -15,38 +15,12 @@
         android:rowCount="3">
 
         <LinearLayout
-            android:id="@+id/lingliao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/main_gird_left"
-                android:layout_marginTop="@dimen/main_gird_top"
-                android:layout_marginRight="@dimen/main_gird_right"
-                android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@drawable/lingliao" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="领料单" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/ruku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <ImageView
@@ -67,12 +41,39 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lingliao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/main_gird_left"
+                android:layout_marginTop="@dimen/main_gird_top"
+                android:layout_marginRight="@dimen/main_gird_right"
+                android:layout_marginBottom="@dimen/main_gird_bottom"
+                android:background="@drawable/lingliao" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="领料单" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/chuku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <ImageView
@@ -96,9 +97,9 @@
             android:id="@+id/yiwei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <ImageView
@@ -122,9 +123,9 @@
             android:id="@+id/baosun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <ImageView
@@ -149,8 +150,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
-            android:background="@drawable/border"
             android:layout_columnWeight="1"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <ImageView

@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zxhd.proerp.cont.Api;
 import com.zxhd.proerp.utils.ClearWriteEditText;
@@ -101,11 +102,11 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.commit();
 
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    showToast(msg);
+                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                     finish();
                                 } else {
-                                    showToast(msg);
+                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
