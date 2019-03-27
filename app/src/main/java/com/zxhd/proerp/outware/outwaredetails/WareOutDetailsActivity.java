@@ -99,6 +99,10 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 break;
             case R.id.ware_out_do:
                 //执行出库
+                if (state == 2) {
+                    Toast.makeText(WareOutDetailsActivity.this, "已经出库完成！", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (mList.size() == 0) {
                     return;
                 }
@@ -113,6 +117,10 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 showDialogWareOut();
                 break;
             case R.id.ware_out_over:
+                if (state == 2) {
+                    Toast.makeText(WareOutDetailsActivity.this, "已经出库完成！", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 //结束出库
                 showDialogWareOutOver();
                 break;
