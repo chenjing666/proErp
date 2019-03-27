@@ -19,9 +19,9 @@ public class WareOutDetailsList {
     private int cha2;//
     private int cha;//剩余下架数量
     private int wareoutnum;//输入的下架数量
-    private String wareoutremark;//输入的描述
+    private String wareoutremark;//输入的批次
 
-    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha,int wareoutnum,String wareoutremark,int waitnumber,int cha2) {
+    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha, int wareoutnum, String wareoutremark, int waitnumber, int cha2) {
         this.id = id;
         this.goodsnumber = goodsnumber;
         this.goodsname = goodsname;

@@ -70,6 +70,8 @@ public class WareOutDetailsAdapter extends RecyclerView.Adapter<WareOutDetailsAd
         holder.outnumber.setText(mData.getOutnumber() + "");
         holder.haveout.setText(mData.getHaveout() + "");
         holder.downnumber.setText(mData.getDownnumber() + "");
+        holder.numWareOut.setText(mData.getWareoutnum()+"");
+        holder.piciWareOut.setText(mData.getWareoutremark()+"");
         //添加editText的监听事件
         holder.numWareOut.addTextChangedListener(new TextSwitcher(holder));
 //        holder.numWareOut.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);

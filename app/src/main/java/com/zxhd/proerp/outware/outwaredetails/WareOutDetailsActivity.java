@@ -46,6 +46,8 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     TextView back;
     @BindView(R.id.ware_out_do)
     FloatingActionButton wareOutDo;
+    @BindView(R.id.ware_out_over)
+    TextView wareOutOver;
     private RecyclerView mRecyclerView;
     private List<WareOutDetailsList> mList = new ArrayList<>();
     private WareOutDetailsAdapter wareOutDetailsAdapter;
@@ -89,7 +91,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         mRecyclerView.setAdapter(wareOutDetailsAdapter);
     }
 
-    @OnClick({R.id.back, R.id.ware_out_do})
+    @OnClick({R.id.back, R.id.ware_out_do, R.id.ware_out_over})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -97,8 +99,6 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 break;
             case R.id.ware_out_do:
                 //执行出库
-//                Toast.makeText(WareOutDetailsActivity.this, "执行出库！", Toast.LENGTH_SHORT).show();
-//                Log.e("mList==", mList.toString());
                 if (mList.size() == 0) {
                     return;
                 }
@@ -112,8 +112,13 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 }
                 showDialogWareOut();
                 break;
+            case R.id.ware_out_over:
+                //结束出库
+                showDialogWareOutOver();
+                break;
         }
     }
+
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -132,12 +137,72 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         }
     };
 
+    private void doBreakWareOut(String a) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("id", outwarehouse_id + "");
+        paramsMap.put("remark", a);
+        OkhttpUtil.okHttpPost(Api.GOODS_WARE_OUT_OVER, paramsMap, new CallBackUtil.CallBackString() {
+            @Override
+            public void onFailure(Call call, Exception e) {
+                Log.e("onFailure", e.toString());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("response", response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String msg = object.getString("msg");
+                    String result = object.getString("result");
+                    Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    if (result.equals("ok")) {
+                        alertDialog.dismiss();
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 结束出库
+     */
+    public void showDialogWareOutOver() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WareOutDetailsActivity.this);
+        builder.setIcon(R.drawable.seal_logo);
+        builder.setTitle("确认结束出库！");
+        //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(WareOutDetailsActivity.this).inflate(R.layout.ware_out_over_remark, null);
+        //    设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+        final EditText ware_out_over_remark = view.findViewById(R.id.ware_out_over_remark);
+
+        builder.setPositiveButton("确定", null);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(WareOutDetailsActivity.this, "点击了取消！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog = builder.create();
+        alertDialog.show();//必须加这句，不然后面会报空指针错误
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String a = ware_out_over_remark.getText().toString().trim();
+                doBreakWareOut(a);
+            }
+        });
+    }
+
     public void doWareOut(String a) {
         HashMap<String, String> paramsMap = new HashMap<>();
-        JSONArray jsonArray=new JSONArray();
-        for (int i=0;i<mList.size();i++){
-            mData=mList.get(i);
-            JSONObject object=new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < mList.size(); i++) {
+            mData = mList.get(i);
+            JSONObject object = new JSONObject();
             try {
                 object.put("id", mData.getId());
                 object.put("goodsnumber", mData.getGoodsnumber());
@@ -168,7 +233,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         paramsMap.put("list_type", list_type + "");
         paramsMap.put("respository_id", respository_id + "");
         paramsMap.put("personid", person_id);
-        Log.e("paramsMap==",paramsMap.toString());
+        Log.e("paramsMap==", paramsMap.toString());
         OkhttpUtil.okHttpPost(Api.GOODS_WARE_OUT, paramsMap, new CallBackUtil.CallBackString() {
             @Override
             public void onFailure(Call call, Exception e) {
