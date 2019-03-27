@@ -16,13 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
             android:id="@+id/de_img_backgroud"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="-200dp"
-            android:layout_marginRight="-200dp"
+            android:layout_marginStart="-50dp"
+            android:layout_marginEnd="-300dp"
             android:scaleType="centerCrop"
             android:src="@drawable/de_bg" />
     </FrameLayout>
