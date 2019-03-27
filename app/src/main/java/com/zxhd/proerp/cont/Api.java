@@ -9,5 +9,6 @@ public class Api {
     public static final String OUT_WARE_LIST_DETAILS_GOODSDIDUI = BASE_URL + "downRespositoryArea/selAllArea";//查询产品所在地堆
     public static final String OUT_WARE_LIST_DETAILS_QUERYGOODS = BASE_URL + "outwarehouseController/findAreaOutGoods";//根据产品和地堆编码查询交集
     public static final String GOODS_DIDUI_DOWM = BASE_URL + "downRespositoryArea/DownRespositoryAreaApp";//下架
+    public static final String GOODS_WARE_OUT = BASE_URL + "outdepotController/addOutdepotApp";//出库
 
 }

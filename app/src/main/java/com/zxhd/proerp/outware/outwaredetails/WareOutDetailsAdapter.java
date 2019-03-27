@@ -3,9 +3,13 @@ package com.zxhd.proerp.outware.outwaredetails;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxhd.proerp.R;
@@ -27,6 +31,13 @@ public class WareOutDetailsAdapter extends RecyclerView.Adapter<WareOutDetailsAd
     public void bind(List<WareOutDetailsList> mList) {
         this.mList = mList;
         notifyDataSetChanged();
+    }
+
+    public interface SaveEditListener {
+
+        void SaveNum(int position, String string);
+
+        void SaveRemark(int position, String string);
     }
 
     @NonNull
@@ -59,6 +70,13 @@ public class WareOutDetailsAdapter extends RecyclerView.Adapter<WareOutDetailsAd
         holder.outnumber.setText(mData.getOutnumber() + "");
         holder.haveout.setText(mData.getHaveout() + "");
         holder.downnumber.setText(mData.getDownnumber() + "");
+        //添加editText的监听事件
+        holder.numWareOut.addTextChangedListener(new TextSwitcher(holder));
+//        holder.numWareOut.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        holder.piciWareOut.addTextChangedListener(new TextSwitcherTwo(holder));
+        //通过设置tag，防止position紊乱
+        holder.numWareOut.setTag(i);
+        holder.piciWareOut.setTag(i);
         //item点击事件
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +85,68 @@ public class WareOutDetailsAdapter extends RecyclerView.Adapter<WareOutDetailsAd
                     onItemClickListener.onItemClick(holder.itemView, i);
                 }
             });
+        }
+    }
+
+    //自定义EditText的监听类
+    class TextSwitcher implements TextWatcher {
+
+        private ListViewHolder mHolder;
+
+        public TextSwitcher(ListViewHolder mHolder) {
+            this.mHolder = mHolder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //用户输入完毕后，处理输入数据，回调给主界面处理
+            SaveEditListener listener = (SaveEditListener) context;
+            if (s != null) {
+                listener.SaveNum(Integer.parseInt(mHolder.numWareOut.getTag().toString()), s.toString());
+//                listener.SaveRemark(Integer.parseInt(mHolder.piciWareOut.getTag().toString()), s.toString());
+            }
+
+        }
+    }
+
+    //自定义EditText的监听类
+    class TextSwitcherTwo implements TextWatcher {
+
+        private ListViewHolder mHolder;
+
+        public TextSwitcherTwo(ListViewHolder mHolder) {
+            this.mHolder = mHolder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //用户输入完毕后，处理输入数据，回调给主界面处理
+            SaveEditListener listener = (SaveEditListener) context;
+            if (s != null) {
+//                listener.SaveNum(Integer.parseInt(mHolder.numWareOut.getTag().toString()), s.toString());
+                listener.SaveRemark(Integer.parseInt(mHolder.piciWareOut.getTag().toString()), s.toString());
+            }
+
         }
     }
 
@@ -94,6 +174,10 @@ public class WareOutDetailsAdapter extends RecyclerView.Adapter<WareOutDetailsAd
         TextView haveout;
         @BindView(R.id.downnumber)
         TextView downnumber;
+        @BindView(R.id.num_ware_out)
+        EditText numWareOut;
+        @BindView(R.id.pici_ware_out)
+        EditText piciWareOut;
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -86,6 +86,7 @@ public class WareOutActivity extends AppCompatActivity {
             intent.putExtra("id", mList.get(position).getLl_id());
             intent.putExtra("respository_id", mList.get(position).getRespository_id());
             intent.putExtra("state", mList.get(position).getState());
+            intent.putExtra("list_type", mList.get(position).getLl_type());
             startActivity(intent);
         }
     };

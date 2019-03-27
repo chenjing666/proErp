@@ -30,7 +30,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/lingliao" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/ware_in" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/ware_out" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/yiwei" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/baosun" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                 android:layout_marginTop="@dimen/main_gird_top"
                 android:layout_marginRight="@dimen/main_gird_right"
                 android:layout_marginBottom="@dimen/main_gird_bottom"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/more" />
 
             <TextView
                 android:layout_width="wrap_content"

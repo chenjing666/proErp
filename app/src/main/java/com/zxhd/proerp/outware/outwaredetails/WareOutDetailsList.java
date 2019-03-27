@@ -15,9 +15,13 @@ public class WareOutDetailsList {
     private int haveout;//已出库
     private int goodsid;//
     private int color_spec;//
+    private int waitnumber;//
+    private int cha2;//
     private int cha;//剩余下架数量
+    private int wareoutnum;//输入的下架数量
+    private String wareoutremark;//输入的描述
 
-    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha) {
+    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, int outnumber, int downnumber, int haveout, int goodsid, int color_spec, int cha,int wareoutnum,String wareoutremark,int waitnumber,int cha2) {
         this.id = id;
         this.goodsnumber = goodsnumber;
         this.goodsname = goodsname;
@@ -33,6 +37,10 @@ public class WareOutDetailsList {
         this.goodsid = goodsid;
         this.color_spec = color_spec;
         this.cha = cha;
+        this.wareoutnum = wareoutnum;
+        this.wareoutremark = wareoutremark;
+        this.waitnumber = waitnumber;
+        this.cha2 = cha2;
     }
 
 
@@ -54,7 +62,43 @@ public class WareOutDetailsList {
                 ", goodsid=" + goodsid +
                 ", color_spec=" + color_spec +
                 ", cha=" + cha +
+                ", wareoutnum=" + wareoutnum +
+                ", wareoutremark='" + wareoutremark + '\'' +
+                ", waitnumber='" + waitnumber + '\'' +
+                ", cha2='" + cha2 + '\'' +
                 '}';
+    }
+
+    public int getWaitnumber() {
+        return waitnumber;
+    }
+
+    public void setWaitnumber(int waitnumber) {
+        this.waitnumber = waitnumber;
+    }
+
+    public int getCha2() {
+        return cha2;
+    }
+
+    public void setCha2(int cha2) {
+        this.cha2 = cha2;
+    }
+
+    public int getWareoutnum() {
+        return wareoutnum;
+    }
+
+    public void setWareoutnum(int wareoutnum) {
+        this.wareoutnum = wareoutnum;
+    }
+
+    public String getWareoutremark() {
+        return wareoutremark;
+    }
+
+    public void setWareoutremark(String wareoutremark) {
+        this.wareoutremark = wareoutremark;
     }
 
     public int getCha() {
