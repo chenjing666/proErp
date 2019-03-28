@@ -1,8 +1,8 @@
 package com.zxhd.proerp.cont;
 
 public class Api {
-//    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
-        public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
+    //    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
+    public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
     /**
      * 登录
      */
@@ -57,5 +57,17 @@ public class Api {
      * //地堆上架
      */
     public static final String GOODS_WARE_IN_UPGOODS = BASE_URL + "upRespositoryArea/upRespositoryAreaApp";
+    /**
+     * 查看货物    area_number编号
+     */
+    public static final String DIDUI_GOODS_DETAILS = BASE_URL + "qydnRespositoryArea/findAllApp";
+    /**
+     * 报损
+     */
+    public static final String GOODS_BAOSUN = BASE_URL + "reportLossController/addReportLossApp";
+    /**
+     * 移位
+     */
+    public static final String GOODS_YIWEI = BASE_URL + "qydnRespositoryArea/moveAreaApp";
 
 }
