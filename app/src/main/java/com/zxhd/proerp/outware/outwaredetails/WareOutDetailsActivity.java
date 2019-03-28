@@ -444,6 +444,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
             @Override
             public void onFailure(Call call, Exception e) {
                 Log.e("onFailure", e.toString());
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
