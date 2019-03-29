@@ -4,6 +4,8 @@
     package="com.zxhd.proerp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppLaunch"
@@ -14,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".inware.inwaredetails.WareInDetailsActivity"></activity>
+
+        <uses-library android:name="android.scanner.library" />
+
+        <activity android:name=".inware.inwaredetails.WareInDetailsActivity" />
         <activity android:name=".outware.diduigoods.DiDuiDetailsActivity" />
         <activity android:name=".outware.outwaredetails.WareOutDetailsActivity" />
         <activity android:name=".baosun.BaoSunActivity" />
@@ -29,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
