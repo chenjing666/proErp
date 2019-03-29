@@ -7,6 +7,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorMain">
+
+        <!--<TextView-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:padding="10dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:text="返回"-->
+            <!--android:textColor="@color/white" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="拉菲草仓库手持"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_main_one"

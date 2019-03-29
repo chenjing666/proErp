@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowManager manager = this.getWindowManager();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        manager.getDefaultDisplay().getMetrics(outMetrics);
-        width = outMetrics.widthPixels;
-        height = outMetrics.heightPixels;
-        Log.e("width==", width + "");
-        Log.e("height==", height + "");
+//        WindowManager manager = this.getWindowManager();
+//        DisplayMetrics outMetrics = new DisplayMetrics();
+//        manager.getDefaultDisplay().getMetrics(outMetrics);
+//        width = outMetrics.widthPixels;
+//        height = outMetrics.heightPixels;
+//        Log.e("width==", width + "");
+//        Log.e("height==", height + "");
         setContentView(R.layout.activity_main);
 //        boolean isHeightInteger = isInteger(width / 3 + "");
 //        if (isHeightInteger) {
@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         // params.leftMargin = dip2px(MainActivity.this, 1);
 //        ll_main_one.setLayoutParams(params);
 //        ll_main_two.setLayoutParams(params2);
-
-
         lingLiao = findViewById(R.id.lingliao);
         lingLiao.setOnClickListener(listener);
         ruku = findViewById(R.id.ruku);
