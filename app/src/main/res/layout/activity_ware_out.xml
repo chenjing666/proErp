@@ -40,6 +40,17 @@
                 android:text="出库需求单"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/search_ware_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:text="搜索"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
         <!--<RelativeLayout-->

@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wyt.searchbox.SearchFragment;
+import com.wyt.searchbox.custom.IOnSearchClickListener;
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.baosun.BaoSunAdapter;
 import com.zxhd.proerp.baosun.BaoSunBean;
@@ -46,11 +48,14 @@ public class TransferActivity extends AppCompatActivity {
     TextView backTransfer;
     @BindView(R.id.recyclerView_transfer)
     RecyclerView mRecyclerView;
+    @BindView(R.id.search_transfer)
+    TextView searchTransfer;
     private List<BaoSunBean> mList = new ArrayList<>();
     private BaoSunBean bean;
     private BaoSunAdapter baoSunAdapter;
     private String searchNum = "";
     private AlertDialog dialog;
+    SearchFragment searchFragment = SearchFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +67,15 @@ public class TransferActivity extends AppCompatActivity {
         baoSunAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(baoSunAdapter);
-        searchNum = "2019030240001";
-        getMList(searchNum);
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                //这里处理逻辑
+//                Toast.makeText(TransferActivity.this, keyword, Toast.LENGTH_SHORT).show();
+                searchNum = keyword;
+                getMList(keyword);
+            }
+        });
     }
 
     @SuppressLint("HandlerLeak")
@@ -178,11 +190,6 @@ public class TransferActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.back_transfer)
-    public void onViewClicked() {
-        finish();
-    }
-
     /**
      * 查询地堆产品列表
      */
@@ -246,5 +253,17 @@ public class TransferActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @OnClick({R.id.back_transfer, R.id.search_transfer})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.back_transfer:
+                finish();
+                break;
+            case R.id.search_transfer:
+                searchFragment.showFragment(getSupportFragmentManager(), SearchFragment.TAG);
+                break;
+        }
     }
 }

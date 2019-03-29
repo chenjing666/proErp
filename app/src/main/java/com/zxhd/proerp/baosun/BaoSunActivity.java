@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wyt.searchbox.SearchFragment;
+import com.wyt.searchbox.custom.IOnSearchClickListener;
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
 import com.zxhd.proerp.utils.http.CallBackUtil;
@@ -44,11 +46,14 @@ public class BaoSunActivity extends AppCompatActivity {
     TextView backBaosun;
     @BindView(R.id.recyclerView_baosun)
     RecyclerView mRecyclerView;
+    @BindView(R.id.search_baosun)
+    TextView searchBaosun;
     private List<BaoSunBean> mList = new ArrayList<>();
     private BaoSunBean bean;
     private BaoSunAdapter baoSunAdapter;
     private String searchNum = "";
     private AlertDialog dialog;
+    SearchFragment searchFragment = SearchFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +65,14 @@ public class BaoSunActivity extends AppCompatActivity {
         baoSunAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(baoSunAdapter);
-        searchNum = "2019030240001";
-        getMList(searchNum);
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                //这里处理逻辑
+                searchNum = keyword;
+                getMList(keyword);
+            }
+        });
     }
 
     @SuppressLint("HandlerLeak")
@@ -147,7 +158,7 @@ public class BaoSunActivity extends AppCompatActivity {
         paramsMap.put("remark", b);
         paramsMap.put("gteid", bean.getGteid() + "");
         paramsMap.put("price", bean.getPrice() + "");
-        Log.e("paramsMap==",paramsMap.toString());
+        Log.e("paramsMap==", paramsMap.toString());
         progressBar.setVisibility(View.VISIBLE);
         OkhttpUtil.okHttpPost(Api.GOODS_BAOSUN, paramsMap, new CallBackUtil.CallBackString() {
             @Override
@@ -174,11 +185,6 @@ public class BaoSunActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @OnClick(R.id.back_baosun)
-    public void onViewClicked() {
-        finish();
     }
 
     /**
@@ -246,4 +252,15 @@ public class BaoSunActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick({R.id.back_baosun, R.id.search_baosun})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.back_baosun:
+                finish();
+                break;
+            case R.id.search_baosun:
+                searchFragment.showFragment(getSupportFragmentManager(), SearchFragment.TAG);
+                break;
+        }
+    }
 }
