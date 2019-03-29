@@ -1,8 +1,11 @@
 package com.zxhd.proerp.inware.inwaredetails;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -59,9 +62,29 @@ public class WareInDetailsActivity extends AppCompatActivity {
     private String didui;
     private AlertDialog dialog;
 
+    /**
+     * 扫描
+     */
+    private String SCAN_ACTION = "com.android.server.scannerservice.seuic.scan";
+    private String START_ACTION = "com.scan.onStartScan";
+    private String END_ACTION = "com.scan.onEndScan";
+    //scannerdata  键值名称
+    public static final String BAR_CODE = "barcode";
+    public static final String scan_data = "scannerdata";
+    private IntentFilter filter;
+    private boolean isScan = false;//默认没有按扫描键
+    private EditText details_didui;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 设置扫描工具广播名称
+        Intent intent_broad = new Intent(SCAN_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putString(BAR_CODE, scan_data);
+        intent_broad.putExtras(bundle);
+        sendBroadcast(intent_broad);
+        //扫描设置
         setContentView(R.layout.activity_ware_in_details);
         ButterKnife.bind(this);
         Intent intent = getIntent();
@@ -73,12 +96,11 @@ public class WareInDetailsActivity extends AppCompatActivity {
         wareInDetailsAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(wareInDetailsAdapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getMList();
+        //扫描
+        filter = new IntentFilter(SCAN_ACTION);
+        filter.addAction(START_ACTION);
+        filter.addAction(END_ACTION);
+        //扫描
     }
 
     @SuppressLint("HandlerLeak")
@@ -92,11 +114,65 @@ public class WareInDetailsActivity extends AppCompatActivity {
                 case 1:
                     showDialog();
                     break;
+                case 2:
+                    Bundle bundle = msg.getData();
+                    String theCode = bundle.getString("scannerdata");
+                    if (!theCode.isEmpty()) {
+                        //接收到条码，执行
+                        details_didui.setText(theCode.trim());
+                    }
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 注册接收器
+        registerReceiver(mReceiver, filter);
+        getMList();
+    }
+
+    @Override
+    protected void onPause() {
+        // 卸载接收器
+        unregisterReceiver(mReceiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(SCAN_ACTION)) {
+                Bundle bundle = intent.getExtras();
+//                String str = bundle.getString("scannerdata");
+//                Log.e("aaa", str);
+                isScan = true;
+                Message obtain = Message.obtain();
+                obtain.what = 2;
+                obtain.setData(bundle);
+                handler.sendMessage(obtain);
+            } else if (action.equals(START_ACTION)) {
+                Log.e("START_ACTION", START_ACTION);
+            } else if (action.equals(END_ACTION)) {
+                Log.e("END_ACTION", END_ACTION);
+            }
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(WareInDetailsActivity.this);
@@ -108,7 +184,8 @@ public class WareInDetailsActivity extends AppCompatActivity {
         builder.setView(view);
         TextView textView = view.findViewById(R.id.details_didui_in);
         textView.setText(didui);
-        final EditText details_didui = view.findViewById(R.id.num_didui_in);//地堆编码
+        //地堆编码
+        details_didui = view.findViewById(R.id.num_didui_in);
         final EditText details_didui_num = view.findViewById(R.id.num_didui_in_num);//数量
 
         builder.setPositiveButton("确定", null);
@@ -140,7 +217,7 @@ public class WareInDetailsActivity extends AppCompatActivity {
 
     private void doUpGoods(String a, String b) {
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_id", a);//地堆
+        paramsMap.put("area_id", "cw" + a.trim());//地堆
         paramsMap.put("sums", b);//数量
         paramsMap.put("gteid", bean.getGteid() + "");
         paramsMap.put("pici", bean.getPici() + "");

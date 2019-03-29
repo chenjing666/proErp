@@ -1,7 +1,11 @@
 package com.zxhd.proerp.transfer;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -57,9 +61,29 @@ public class TransferActivity extends AppCompatActivity {
     private AlertDialog dialog;
     SearchFragment searchFragment = SearchFragment.newInstance();
 
+    /**
+     * 扫描
+     */
+    private String SCAN_ACTION = "com.android.server.scannerservice.seuic.scan";
+    private String START_ACTION = "com.scan.onStartScan";
+    private String END_ACTION = "com.scan.onEndScan";
+    //scannerdata  键值名称
+    public static final String BAR_CODE = "barcode";
+    public static final String scan_data = "scannerdata";
+    private IntentFilter filter;
+    private boolean isScan = false;//默认没有按扫描键
+    private EditText details_didui_area;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 设置扫描工具广播名称
+        Intent intent = new Intent(SCAN_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putString(BAR_CODE, scan_data);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
+        //扫描设置
         setContentView(R.layout.activity_transfer);
         ButterKnife.bind(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -76,6 +100,11 @@ public class TransferActivity extends AppCompatActivity {
                 getMList(keyword);
             }
         });
+        //扫描
+        filter = new IntentFilter(SCAN_ACTION);
+        filter.addAction(START_ACTION);
+        filter.addAction(END_ACTION);
+        //扫描
     }
 
     @SuppressLint("HandlerLeak")
@@ -86,11 +115,67 @@ public class TransferActivity extends AppCompatActivity {
                 case 0:
                     baoSunAdapter.bind(mList);
                     break;
+                case 1:
+                    Bundle bundle = msg.getData();
+                    String theCode = bundle.getString("scannerdata");
+                    if (!theCode.isEmpty()) {
+                        //接收到条码，执行
+                        if (dialog != null && dialog.isShowing()) {
+                            details_didui_area.setText(theCode.trim());
+                        } else {
+                            searchNum = theCode;
+                            getMList(theCode);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 注册接收器
+        registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        // 卸载接收器
+        unregisterReceiver(mReceiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(SCAN_ACTION)) {
+                Bundle bundle = intent.getExtras();
+                isScan = true;
+                Message obtain = Message.obtain();
+                obtain.what = 1;
+                obtain.setData(bundle);
+                handler.sendMessage(obtain);
+            } else if (action.equals(START_ACTION)) {
+                Log.e("START_ACTION", START_ACTION);
+            } else if (action.equals(END_ACTION)) {
+                Log.e("END_ACTION", END_ACTION);
+            }
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     private BaoSunAdapter.OnItemClickListener listener = new BaoSunAdapter.OnItemClickListener() {
         @Override
@@ -113,7 +198,7 @@ public class TransferActivity extends AppCompatActivity {
         builder.setView(view);
         final EditText details_didui_num = view.findViewById(R.id.num_didui_transfer);
         details_didui_num.setInputType(8194);//8194只能输入数字和小数点
-        final EditText details_didui_reason = view.findViewById(R.id.num_didui_didui_transfer);
+        details_didui_area = view.findViewById(R.id.num_didui_didui_transfer);
 
         builder.setPositiveButton("确定", null);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -129,7 +214,7 @@ public class TransferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String a = details_didui_num.getText().toString().trim();
-                String b = details_didui_reason.getText().toString().trim();
+                String b = details_didui_area.getText().toString().trim();
                 if (a.isEmpty()) {
                     Toast.makeText(TransferActivity.this, "请输入数量！", Toast.LENGTH_SHORT).show();
                     return;
@@ -198,7 +283,7 @@ public class TransferActivity extends AppCompatActivity {
             mList.clear();
         }
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_number", "cw" + area_number);
+        paramsMap.put("area_number", "cw" + area_number.trim());
         progressBar.setVisibility(View.VISIBLE);
         OkhttpUtil.okHttpPost(Api.DIDUI_GOODS_DETAILS, paramsMap, new CallBackUtil.CallBackString() {
             @Override
