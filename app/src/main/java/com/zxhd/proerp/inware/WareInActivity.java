@@ -83,7 +83,16 @@ public class WareInActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    wareInAdapter.bind(mList);
+                    if (mList.size() == 1 && !searchNum.isEmpty()) {
+                        WareInBean bean = mList.get(0);
+                        Intent intent = new Intent(WareInActivity.this, WareInDetailsActivity.class);
+                        intent.putExtra("id", bean.getId());
+                        intent.putExtra("respository_id", bean.getRespository_id());
+                        intent.putExtra("name", bean.getRespository_name());
+                        startActivity(intent);
+                    } else {
+                        wareInAdapter.bind(mList);
+                    }
                     break;
                 default:
                     break;

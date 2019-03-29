@@ -79,7 +79,16 @@ public class WareOutActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    wareOutAdapter.bind(mList);
+                    if (mList.size() == 1 && !searchNum.isEmpty()) {
+                        Intent intent = new Intent(WareOutActivity.this, WareOutDetailsActivity.class);
+                        intent.putExtra("id", mList.get(0).getLl_id());
+                        intent.putExtra("respository_id", mList.get(0).getRespository_id());
+                        intent.putExtra("state", mList.get(0).getState());
+                        intent.putExtra("list_type", mList.get(0).getLl_type());
+                        startActivity(intent);
+                    } else {
+                        wareOutAdapter.bind(mList);
+                    }
                     break;
                 default:
                     break;
