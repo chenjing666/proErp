@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.de_login_sign:
+//                    getIdDetails("320323199112164031");
                     String account = deLoginPhone.getText().toString();
                     String pwd = deLoginPassword.getText().toString();
                     Map<String, String> map = new HashMap();
@@ -102,11 +103,11 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.commit();
 
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                     finish();
                                 } else {
-                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -118,6 +119,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void getIdDetails(String code) {
+        Map<String, String> params = new HashMap();
+        params.put("cardno", code);//身份证号码
+        params.put("dtype", "json");//返回数据格式：json或xml,默认json
+        params.put("key", "c3202af1edc058d297902a4739ff2b7a");//你申请的key
+        OkhttpUtil.okHttpGet("http://apis.juhe.cn/idcard/index", params, new CallBackUtil.CallBackString() {
+            @Override
+            public void onFailure(Call call, Exception e) {
+                Log.e("onFailure", e.toString());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("onResponse", response);
+//                {"resultcode":"200","reason":"成功的返回","result":{"area":"江苏省徐州市铜山县","sex":"男","birthday":"1991年12月16日","verify":""},"error_code":0}
+            }
+        });
+    }
 
     public void showToast(String msg) {
         NiceToast.newNiceToast(this).setText(msg)
