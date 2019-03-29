@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,10 +43,14 @@ public class LingLiaoActivity extends AppCompatActivity {
     TextView back;
     @BindView(R.id.search_ware_out_lingliao)
     TextView searchWareOutLingliao;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.loading)
+    ProgressBar progressBar;
+    @BindView(R.id.recyclerView_ware_out)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.swipeRefreshLayout_ling_liao)
+    SwipeRefreshLayout swipeRefreshLayoutLingLiao;
     private List<OutWareList> mList = new ArrayList<OutWareList>();
     private LingLiaoListAdapter wareOutAdapter;
-    private ProgressBar progressBar;
     private int pageSize = 20;
     private int nowPage = 1;
     private String searchNum = "";
@@ -56,14 +61,37 @@ public class LingLiaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ling_liao);
         ButterKnife.bind(this);
-        progressBar = findViewById(R.id.loading);
-        mRecyclerView = findViewById(R.id.recyclerView_ware_out);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         wareOutAdapter = new LingLiaoListAdapter(this);
         wareOutAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(wareOutAdapter);
-
+        swipeRefreshLayoutLingLiao.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //重新获取数据
+                getMList("");
+                //获取完成
+                swipeRefreshLayoutLingLiao.setRefreshing(false);
+            }
+        });
+//        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == wareOutAdapter.getItemCount()) {
+//                    swipeRefreshLayoutLingLiao.setRefreshing(true);
+//                    //分页获取数据
+//                    //获取完成
+//                    swipeRefreshLayoutLingLiao.setRefreshing(false);
+//                }
+//            }
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+//            }
+//        });
         searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
             @Override
             public void OnSearchClick(String keyword) {

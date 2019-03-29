@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,8 @@ public class WareOutActivity extends AppCompatActivity {
     TextView back;
     @BindView(R.id.search_ware_out)
     TextView searchWareOut;
+    @BindView(R.id.swipeRefreshLayout_out)
+    SwipeRefreshLayout swipeRefreshLayoutOut;
     private RecyclerView mRecyclerView;
     private List<OutWareList> mList = new ArrayList<OutWareList>();
     private WareOutAdapter wareOutAdapter;
@@ -62,6 +65,15 @@ public class WareOutActivity extends AppCompatActivity {
         wareOutAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(wareOutAdapter);
+        swipeRefreshLayoutOut.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //重新获取数据
+                getMList("");
+                //获取完成
+                swipeRefreshLayoutOut.setRefreshing(false);
+            }
+        });
         searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
             @Override
             public void OnSearchClick(String keyword) {

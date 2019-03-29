@@ -53,11 +53,18 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_ware_in"
+        <view
+            android:id="@+id/swipeRefreshLayout_in"
+            class="android.support.v4.widget.SwipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:background="@color/white" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_ware_in"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white" />
+        </view>
     </LinearLayout>
 </RelativeLayout>
