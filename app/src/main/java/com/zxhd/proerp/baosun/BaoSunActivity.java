@@ -122,12 +122,56 @@ public class BaoSunActivity extends AppCompatActivity {
                 } else {
                     double aa = Double.parseDouble(a);
                     Log.e("aa==", aa + "");
-                    if (aa == 0.0) {
+                    if (aa <= 0.0 || aa > bean.getSums()) {
                         Toast.makeText(BaoSunActivity.this, "请输入合法数量！", Toast.LENGTH_SHORT).show();
                         return;
+                    } else {
+                        //输入数量正确，执行报损
+                        doBaoSun(aa, b);
                     }
                 }
 
+            }
+        });
+    }
+
+    private void doBaoSun(double a, String b) {
+        HashMap<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("goodsid", bean.getGoodsid() + "");
+        paramsMap.put("inList", bean.getList());
+        paramsMap.put("pici", bean.getPici() + "");
+        paramsMap.put("judge", bean.getJudge() + "");
+        paramsMap.put("area_number", bean.getArea_number());
+        paramsMap.put("sums", a + "");
+        paramsMap.put("color_spec", bean.getColor_spec() + "");
+        paramsMap.put("remark", b);
+        paramsMap.put("gteid", bean.getGteid() + "");
+        paramsMap.put("price", bean.getPrice() + "");
+        Log.e("paramsMap==",paramsMap.toString());
+        progressBar.setVisibility(View.VISIBLE);
+        OkhttpUtil.okHttpPost(Api.GOODS_BAOSUN, paramsMap, new CallBackUtil.CallBackString() {
+            @Override
+            public void onFailure(Call call, Exception e) {
+                Log.e("onFailure", e.toString());
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
+                Log.e("response", response);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String msg = object.getString("msg");
+                    String result = object.getString("result");
+                    Toast.makeText(BaoSunActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    if (result.equals("ok")) {
+                        dialog.dismiss();
+                        getMList(searchNum);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
