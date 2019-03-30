@@ -114,6 +114,10 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                     }
                     aa = aa + "产品编码：" + mData.getGoodsnumber() + "产品名称：" + mData.getGoodsname() + "出库数量：" + mData.getWareoutnum() + "备注：" + mData.getWareoutremark() + "\n";
                 }
+                if(aa.isEmpty()){
+                    Toast.makeText(WareOutDetailsActivity.this, "请输入出库信息！", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 showDialogWareOut();
                 break;
             case R.id.ware_out_over:
@@ -135,6 +139,9 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
             switch (msg.what) {
                 case 0:
                     wareOutDetailsAdapter.bind(mList);
+                    if(mList.size()==0){
+                        Toast.makeText(WareOutDetailsActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
+                    }
                     break;
                 case 1:
                     showDialog();
@@ -341,7 +348,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 intent.putExtra("outwarehouse_id", outwarehouse_id + "");
                 intent.putExtra("color_spec", color_spec + "");
                 intent.putExtra("cha", cha);
-                intent.putExtra("area_number", a);
+                intent.putExtra("area_number","cw"+ a);
                 intent.putExtra("outnumber", mData.getOutnumber());
                 startActivity(intent);
                 dialog.dismiss();
@@ -495,7 +502,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     @Override
     public void SaveNum(int position, String string) {
         //回调处理edittext内容，使用map的好处在于：position确定的情况下，string改变，只会动态改变string内容
-        mList.get(position).setWareoutnum(Integer.parseInt(string));
+        mList.get(position).setWareoutnum(Double.parseDouble(string));
     }
 
     @Override

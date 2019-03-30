@@ -110,6 +110,9 @@ public class BaoSunActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     baoSunAdapter.bind(mList);
+                    if(mList.size()==0){
+                        Toast.makeText(BaoSunActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
+                    }
                     break;
                 case 1:
                     Bundle bundle = msg.getData();

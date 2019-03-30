@@ -136,6 +136,9 @@ public class WareInActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         wareInAdapter.bind(mList);
+                        if(mList.size()==0){
+                            Toast.makeText(WareInActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
+                        }
                     }
                     break;
                 case 1:

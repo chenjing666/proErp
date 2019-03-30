@@ -110,6 +110,9 @@ public class WareInDetailsActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     wareInDetailsAdapter.bind(mList);
+                    if(mList.size()==0){
+                        Toast.makeText(WareInDetailsActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
+                    }
                     break;
                 case 1:
                     showDialog();

@@ -73,7 +73,7 @@ public class WareOutDetailsList {
         return waitnumber;
     }
 
-    public void setWaitnumber(int waitnumber) {
+    public void setWaitnumber(double waitnumber) {
         this.waitnumber = waitnumber;
     }
 
@@ -81,7 +81,7 @@ public class WareOutDetailsList {
         return cha2;
     }
 
-    public void setCha2(int cha2) {
+    public void setCha2(double cha2) {
         this.cha2 = cha2;
     }
 
@@ -89,7 +89,7 @@ public class WareOutDetailsList {
         return wareoutnum;
     }
 
-    public void setWareoutnum(int wareoutnum) {
+    public void setWareoutnum(double wareoutnum) {
         this.wareoutnum = wareoutnum;
     }
 
@@ -105,7 +105,7 @@ public class WareOutDetailsList {
         return cha;
     }
 
-    public void setCha(int cha) {
+    public void setCha(double cha) {
         this.cha = cha;
     }
 
@@ -201,7 +201,7 @@ public class WareOutDetailsList {
         return outnumber;
     }
 
-    public void setOutnumber(int outnumber) {
+    public void setOutnumber(double outnumber) {
         this.outnumber = outnumber;
     }
 
@@ -209,7 +209,7 @@ public class WareOutDetailsList {
         return downnumber;
     }
 
-    public void setDownnumber(int downnumber) {
+    public void setDownnumber(double downnumber) {
         this.downnumber = downnumber;
     }
 
@@ -217,7 +217,7 @@ public class WareOutDetailsList {
         return haveout;
     }
 
-    public void setHaveout(int haveout) {
+    public void setHaveout(double haveout) {
         this.haveout = haveout;
     }
 }
