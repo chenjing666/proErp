@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.zxhd.proerp.baosun.BaoSunActivity;
 import com.zxhd.proerp.inware.WareInActivity;
 import com.zxhd.proerp.lingliao.LingLiaoActivity;
+import com.zxhd.proerp.more.MoreActivity;
 import com.zxhd.proerp.outware.WareOutActivity;
 import com.zxhd.proerp.transfer.TransferActivity;
 import com.zxhd.proerp.utils.toast.NiceToast;
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, BaoSunActivity.class));
                     break;
                 case R.id.more:
-                    showToast("更多");
+                    startActivity(new Intent(MainActivity.this, MoreActivity.class));
                     break;
             }
         }
