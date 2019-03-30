@@ -129,6 +129,7 @@ public class MoreActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.clear_more:
+                tvMsg="";
                 tvResultScan.setText("");
                 break;
         }
