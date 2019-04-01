@@ -317,10 +317,16 @@ public class TransferActivity extends AppCompatActivity {
                         String goodsname = obj.getString("goodsname");
                         String twotypename = obj.getString("twotypename");
                         String goodsspec = obj.getString("goodsspec");
-                        String colorNum = obj.getString("colorNum");
+                        String colorNum = "";
+                        if (obj.has("colorNum")) {
+                            colorNum = obj.getString("colorNum");
+                        }
+                        String colorPicture = "";
+                        if (obj.has("colorPicture")) {
+                            colorPicture = obj.getString("colorPicture");
+                        }
                         String metering_name = obj.getString("metering_name");
                         String metering_abbreviation = obj.getString("metering_abbreviation");
-                        String colorPicture = obj.getString("colorPicture");
                         String list = obj.getString("list");
                         String area_number2 = obj.getString("area_number");
                         int id = obj.getInt("id");
