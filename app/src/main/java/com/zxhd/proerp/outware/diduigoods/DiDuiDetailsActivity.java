@@ -40,12 +40,12 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
     private List<DiDuiGoodsList> mList = new ArrayList<>();
     private DiDuiGoodsAdapter diDuiGoodsAdapter;
     private ProgressBar progressBar;
-    private int cha;
+    private double cha;
     private int pageSize = 20;
     private int nowPage = 1;
     private String msg;
     private String outwarehouse_id;
-    private int outnumber;
+    private double outnumber;
     private DiDuiGoodsList mData;
     private AlertDialog dialog;
     private int b;
@@ -57,10 +57,10 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         goodsid = intent.getStringExtra("goodsid");
         judge = intent.getStringExtra("judge");
-        cha = intent.getIntExtra("cha", 0);//剩余下架数量
+        cha = intent.getDoubleExtra("cha", 0);//剩余下架数量
         respository_id = intent.getStringExtra("respository_id");
         outwarehouse_id = intent.getStringExtra("outwarehouse_id");
-        outnumber = intent.getIntExtra("outnumber", 0);
+        outnumber = intent.getDoubleExtra("outnumber", 0);
         color_spec = intent.getStringExtra("color_spec");
         area_number = intent.getStringExtra("area_number");
         progressBar = findViewById(R.id.loading_didui_goods);
@@ -229,7 +229,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                         String area_number = obj.getString("area_number");//地堆
                         String list = obj.getString("list");//入库单号
                         int goodsid = obj.getInt("goodsid");//
-                        int sums = obj.getInt("sums");//
+                        double sums = obj.getDouble("sums");//
                         int pici = obj.getInt("pici");//
                         int area_id = obj.getInt("area_id");//
                         int id = obj.getInt("id");//

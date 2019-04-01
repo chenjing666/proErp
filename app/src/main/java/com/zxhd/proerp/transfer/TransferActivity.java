@@ -28,6 +28,7 @@ import com.zxhd.proerp.R;
 import com.zxhd.proerp.baosun.BaoSunAdapter;
 import com.zxhd.proerp.baosun.BaoSunBean;
 import com.zxhd.proerp.cont.Api;
+import com.zxhd.proerp.utils.WordHandle;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -114,7 +115,7 @@ public class TransferActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     baoSunAdapter.bind(mList);
-                    if(mList.size()==0){
+                    if (mList.size() == 0) {
                         Toast.makeText(TransferActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -238,6 +239,7 @@ public class TransferActivity extends AppCompatActivity {
     }
 
     private void doTransfer(double a, String b) {
+        b = WordHandle.getWord(b.trim(), WordHandle.regEx_num);
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("goodsid", bean.getGoodsid() + "");
         paramsMap.put("area_id", bean.getArea_id() + "");
@@ -285,8 +287,9 @@ public class TransferActivity extends AppCompatActivity {
         if (mList != null) {
             mList.clear();
         }
+        area_number = WordHandle.getWord(area_number.trim(), WordHandle.regEx_num);
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_number", "cw" + area_number.trim());
+        paramsMap.put("area_number", "cw" + area_number);
         progressBar.setVisibility(View.VISIBLE);
         OkhttpUtil.okHttpPost(Api.DIDUI_GOODS_DETAILS, paramsMap, new CallBackUtil.CallBackString() {
             @Override

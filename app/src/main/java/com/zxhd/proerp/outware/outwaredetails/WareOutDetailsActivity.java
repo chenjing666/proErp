@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
 import com.zxhd.proerp.outware.diduigoods.DiDuiDetailsActivity;
+import com.zxhd.proerp.utils.WordHandle;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -114,7 +115,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                     }
                     aa = aa + "产品编码：" + mData.getGoodsnumber() + "产品名称：" + mData.getGoodsname() + "出库数量：" + mData.getWareoutnum() + "备注：" + mData.getWareoutremark() + "\n";
                 }
-                if(aa.isEmpty()){
+                if (aa.isEmpty()) {
                     Toast.makeText(WareOutDetailsActivity.this, "请输入出库信息！", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -139,7 +140,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
             switch (msg.what) {
                 case 0:
                     wareOutDetailsAdapter.bind(mList);
-                    if(mList.size()==0){
+                    if (mList.size() == 0) {
                         Toast.makeText(WareOutDetailsActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -341,6 +342,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                     Toast.makeText(WareOutDetailsActivity.this, "请输入或扫描地堆编码！", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                a = WordHandle.getWord(a, WordHandle.regEx_num);//添加截取字符串
                 Intent intent = new Intent(WareOutDetailsActivity.this, DiDuiDetailsActivity.class);
                 intent.putExtra("goodsid", goodsid + "");
                 intent.putExtra("judge", judge + "");
@@ -348,7 +350,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 intent.putExtra("outwarehouse_id", outwarehouse_id + "");
                 intent.putExtra("color_spec", color_spec + "");
                 intent.putExtra("cha", cha);
-                intent.putExtra("area_number","cw"+ a);
+                intent.putExtra("area_number", "cw" + a);
                 intent.putExtra("outnumber", mData.getOutnumber());
                 startActivity(intent);
                 dialog.dismiss();
@@ -419,7 +421,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                             String area_number = obj.getString("area_number");//地堆
                             String list = obj.getString("list");//入库单号
                             int pici = obj.getInt("pici");//批次
-                            int sums = obj.getInt("sums");//在架数量
+                            double sums = obj.getDouble("sums");//在架数量
                             msg = msg + "地堆编码：" + area_number + "入库单号：" + list + "批次：" + pici + "在库数量：" + sums + "\n";
                         }
                         Message obtain = Message.obtain();
@@ -478,14 +480,14 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                         String metering_abbreviation = obj.getString("metering_abbreviation");
                         int id = obj.getInt("id");
                         int judge = obj.getInt("judge");
-                        int outnumber = obj.getInt("outnumber");
-                        int waitnumber = obj.getInt("waitnumber");
-                        int downnumber = obj.getInt("downnumber");
-                        int haveout = obj.getInt("haveout");
+                        double outnumber = obj.getDouble("outnumber");
+                        double waitnumber = obj.getDouble("waitnumber");
+                        double downnumber = obj.getDouble("downnumber");
+                        double haveout = obj.getDouble("haveout");
                         int goodsid = obj.getInt("goodsid");
                         int color_spec = obj.getInt("color_spec");
-                        int cha = obj.getInt("cha");
-                        int cha2 = obj.getInt("cha2");
+                        double cha = obj.getDouble("cha");
+                        double cha2 = obj.getDouble("cha2");
                         WareOutDetailsList wareOutDetailsList = new WareOutDetailsList(id, goodsnumber, goodsname, judge, twotypename, goodsspec, colorNum, metering_name, metering_abbreviation, outnumber, downnumber, haveout, goodsid, color_spec, cha, 0, "", waitnumber, cha2);
                         mList.add(wareOutDetailsList);
                     }

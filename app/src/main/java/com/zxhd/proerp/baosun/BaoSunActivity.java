@@ -26,6 +26,7 @@ import com.wyt.searchbox.SearchFragment;
 import com.wyt.searchbox.custom.IOnSearchClickListener;
 import com.zxhd.proerp.R;
 import com.zxhd.proerp.cont.Api;
+import com.zxhd.proerp.utils.WordHandle;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -110,7 +111,7 @@ public class BaoSunActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     baoSunAdapter.bind(mList);
-                    if(mList.size()==0){
+                    if (mList.size() == 0) {
                         Toast.makeText(BaoSunActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -276,8 +277,9 @@ public class BaoSunActivity extends AppCompatActivity {
         if (mList != null) {
             mList.clear();
         }
+        area_number = WordHandle.getWord(area_number.trim(), WordHandle.regEx_num);
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_number", "cw" + area_number.trim());
+        paramsMap.put("area_number", "cw" + area_number);
         progressBar.setVisibility(View.VISIBLE);
         OkhttpUtil.okHttpPost(Api.DIDUI_GOODS_DETAILS, paramsMap, new CallBackUtil.CallBackString() {
             @Override

@@ -268,7 +268,7 @@ public class WareInActivity extends AppCompatActivity {
                         int returnState = obj.getInt("returnState");
                         int shenghe = obj.getInt("shenghe");
                         int state = obj.getInt("state");
-                        double totalPrice = obj.getInt("totalPrice");
+                        double totalPrice = obj.getDouble("totalPrice");
                         WareInBean wareInBean = new WareInBean(employeeName, judges, list, list_type, lists, remark, repo_time, respository_name, gteid, id, pici, repo_name, respository_id, returnState, shenghe, state, totalPrice);
                         mList.add(wareInBean);
                     }

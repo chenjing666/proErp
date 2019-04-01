@@ -27,6 +27,7 @@ import com.zxhd.proerp.cont.Api;
 import com.zxhd.proerp.outware.diduigoods.DiDuiDetailsActivity;
 import com.zxhd.proerp.outware.outwaredetails.WareOutDetailsActivity;
 import com.zxhd.proerp.outware.outwaredetails.WareOutDetailsList;
+import com.zxhd.proerp.utils.WordHandle;
 import com.zxhd.proerp.utils.http.CallBackUtil;
 import com.zxhd.proerp.utils.http.OkhttpUtil;
 
@@ -219,8 +220,9 @@ public class WareInDetailsActivity extends AppCompatActivity {
     }
 
     private void doUpGoods(String a, String b) {
+        a= WordHandle.getWord(a.trim(),WordHandle.regEx_num);
         HashMap<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("area_id", "cw" + a.trim());//地堆
+        paramsMap.put("area_id", "cw" + a);//地堆
         paramsMap.put("sums", b);//数量
         paramsMap.put("gteid", bean.getGteid() + "");
         paramsMap.put("pici", bean.getPici() + "");

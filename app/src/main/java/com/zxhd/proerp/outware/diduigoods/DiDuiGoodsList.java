@@ -21,12 +21,12 @@ public class DiDuiGoodsList {
     private int gteid;
     private int pici;
     private int area_id;
-    private int sums;
+    private double sums;
     private String list;
     private String district_number;
     private String area_number;
 
-    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, int sums, String list, String district_number, String area_number,int gteid) {
+    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, double sums, String list, String district_number, String area_number,int gteid) {
         this.goodsid = goodsid;
         this.price = price;
         this.repo_name = repo_name;
@@ -123,11 +123,11 @@ public class DiDuiGoodsList {
         this.area_id = area_id;
     }
 
-    public int getSums() {
+    public double getSums() {
         return sums;
     }
 
-    public void setSums(int sums) {
+    public void setSums(double sums) {
         this.sums = sums;
     }
 
