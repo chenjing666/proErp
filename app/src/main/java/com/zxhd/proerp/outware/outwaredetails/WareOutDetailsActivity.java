@@ -1,9 +1,11 @@
 package com.zxhd.proerp.outware.outwaredetails;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,17 +70,35 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     private int list_type;
     private String aa;
     private AlertDialog alertDialog;
+    /**
+     * 扫描
+     */
+    private String SCAN_ACTION = "com.android.server.scannerservice.seuic.scan";
+    private String START_ACTION = "com.scan.onStartScan";
+    private String END_ACTION = "com.scan.onEndScan";
+    //scannerdata  键值名称
+    public static final String BAR_CODE = "barcode";
+    public static final String scan_data = "scannerdata";
+    private IntentFilter filter;
+    private EditText ware_out_employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 设置扫描工具广播名称
+        Intent intent = new Intent(SCAN_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putString(BAR_CODE, scan_data);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
+        //扫描设置
         setContentView(R.layout.activity_ware_out_details);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        outwarehouse_id = intent.getIntExtra("id", 0);
-        respository_id = intent.getIntExtra("respository_id", 0);
-        state = intent.getIntExtra("state", 0);
-        list_type = intent.getIntExtra("list_type", 0);
+        Intent intent2 = getIntent();
+        outwarehouse_id = intent2.getIntExtra("id", 0);
+        respository_id = intent2.getIntExtra("respository_id", 0);
+        state = intent2.getIntExtra("state", 0);
+        list_type = intent2.getIntExtra("list_type", 0);
 
         SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         person_id = preferences.getString("id", null);
@@ -90,6 +110,12 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         wareOutDetailsAdapter.setOnItemClickListener(listener);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(wareOutDetailsAdapter);
+
+        //扫描
+        filter = new IntentFilter(SCAN_ACTION);
+        filter.addAction(START_ACTION);
+        filter.addAction(END_ACTION);
+        //扫描
     }
 
     @OnClick({R.id.back, R.id.ware_out_do, R.id.ware_out_over})
@@ -147,11 +173,62 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 case 1:
                     showDialog();
                     break;
+                case 2:
+                    Bundle bundle = msg.getData();
+                    String theCode = bundle.getString("scannerdata");
+                    if (!theCode.isEmpty()) {
+                        //接收到条码，执行搜索
+                        if (alertDialog.isShowing()) {
+                            ware_out_employee.setText(theCode.trim());
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 注册接收器
+        registerReceiver(mReceiver, filter);
+        getMList();
+    }
+    @Override
+    protected void onPause() {
+        // 卸载接收器
+        unregisterReceiver(mReceiver);
+        super.onPause();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(SCAN_ACTION)) {
+                Bundle bundle = intent.getExtras();
+                Message obtain = Message.obtain();
+                obtain.what = 2;
+                obtain.setData(bundle);
+                handler.sendMessage(obtain);
+            } else if (action.equals(START_ACTION)) {
+                Log.e("START_ACTION", START_ACTION);
+            } else if (action.equals(END_ACTION)) {
+                Log.e("END_ACTION", END_ACTION);
+            }
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     private void doBreakWareOut(String a) {
         HashMap<String, String> paramsMap = new HashMap<>();
@@ -292,7 +369,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         TextView textView = view.findViewById(R.id.ware_out_s);
         textView.setText(aa);
         final EditText ware_out_remark = view.findViewById(R.id.ware_out_remark);
-        final EditText ware_out_employee = view.findViewById(R.id.ware_out_employee);
+        ware_out_employee = view.findViewById(R.id.ware_out_employee);
 
         builder.setPositiveButton("确定", null);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -362,11 +439,6 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getMList();
-    }
 
     private WareOutDetailsAdapter.OnItemClickListener listener = new WareOutDetailsAdapter.OnItemClickListener() {
         @Override
