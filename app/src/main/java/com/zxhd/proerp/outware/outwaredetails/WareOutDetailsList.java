@@ -15,13 +15,14 @@ public class WareOutDetailsList {
     private double haveout;//已出库
     private int goodsid;//
     private int color_spec;//
+    private int meteringId;//
     private double waitnumber;//
     private double cha2;//
     private double cha;//剩余下架数量
     private double wareoutnum;//输入的下架数量
     private String wareoutremark;//输入的批次
 
-    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, double outnumber, double downnumber, double haveout, int goodsid, int color_spec, double cha, double wareoutnum, String wareoutremark, double waitnumber, double cha2) {
+    public WareOutDetailsList(int id, String goodsnumber, String goodsname, int judge, String twotypename, String goodsspec, String colorNum, String metering_name, String metering_abbreviation, double outnumber, double downnumber, double haveout, int goodsid, int color_spec, double cha, double wareoutnum, String wareoutremark, double waitnumber, double cha2,int meteringId) {
         this.id = id;
         this.goodsnumber = goodsnumber;
         this.goodsname = goodsname;
@@ -35,6 +36,7 @@ public class WareOutDetailsList {
         this.downnumber = downnumber;
         this.haveout = haveout;
         this.goodsid = goodsid;
+        this.meteringId = meteringId;
         this.color_spec = color_spec;
         this.cha = cha;
         this.wareoutnum = wareoutnum;
@@ -62,11 +64,20 @@ public class WareOutDetailsList {
                 ", goodsid=" + goodsid +
                 ", color_spec=" + color_spec +
                 ", cha=" + cha +
+                ", meteringId=" + meteringId +
                 ", wareoutnum=" + wareoutnum +
                 ", wareoutremark='" + wareoutremark + '\'' +
                 ", waitnumber='" + waitnumber + '\'' +
                 ", cha2='" + cha2 + '\'' +
                 '}';
+    }
+
+    public int getMeteringId() {
+        return meteringId;
+    }
+
+    public void setMeteringId(int meteringId) {
+        this.meteringId = meteringId;
     }
 
     public double getWaitnumber() {

@@ -57,8 +57,9 @@ public class WareInDetailsBean {
     private int pici;
     private int respository_id;
     private int status;
+    private int meteringId;
 
-    public WareInDetailsBean(double cha, double cha2, double haveReturn, double in, double price, double quantity, double sums, String colorNum, String colorPicture, String ep_name, String ep_number, String ep_spec, String metering_abbreviation, String metering_name, String repo_name, String supplier_Name, String twotypename, int color_spec, int endproduct, int ep_unit, int goodsid, int gteid, int id, int inWarehouse_id, int judge, int pici, int respository_id, int status) {
+    public WareInDetailsBean(double cha, double cha2, double haveReturn, double in, double price, double quantity, double sums, String colorNum, String colorPicture, String ep_name, String ep_number, String ep_spec, String metering_abbreviation, String metering_name, String repo_name, String supplier_Name, String twotypename, int color_spec, int endproduct, int ep_unit, int goodsid, int gteid, int id, int inWarehouse_id, int judge, int pici, int respository_id, int status, int meteringId) {
         this.cha = cha;
         this.cha2 = cha2;
         this.haveReturn = haveReturn;
@@ -66,6 +67,7 @@ public class WareInDetailsBean {
         this.price = price;
         this.quantity = quantity;
         this.sums = sums;
+        this.meteringId = meteringId;
         this.colorNum = colorNum;
         this.colorPicture = colorPicture;
         this.ep_name = ep_name;
@@ -117,10 +119,19 @@ public class WareInDetailsBean {
                 ", id=" + id +
                 ", inWarehouse_id=" + inWarehouse_id +
                 ", judge=" + judge +
+                ", meteringId=" + meteringId +
                 ", pici=" + pici +
                 ", respository_id=" + respository_id +
                 ", status=" + status +
                 '}';
+    }
+
+    public int getMeteringId() {
+        return meteringId;
+    }
+
+    public void setMeteringId(int meteringId) {
+        this.meteringId = meteringId;
     }
 
     public int getColor_spec() {

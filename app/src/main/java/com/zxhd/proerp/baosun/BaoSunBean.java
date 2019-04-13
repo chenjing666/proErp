@@ -30,6 +30,7 @@ public class BaoSunBean {
     private int judge;
     private int id;
     private int status;
+    private int meteringId;
     private String colorNum;
     private String colorPicture;
     private String goodsname;
@@ -43,7 +44,7 @@ public class BaoSunBean {
     private double price;
     private double sums;
 
-    public BaoSunBean(int goodsid, int color_spec, int pici, int area_id, int gteid, int judge, int id, int status, String colorNum, String colorPicture, String goodsname, String list, String area_number, String metering_name, String metering_abbreviation, String goodsnumber, String goodsspec, String twotypename, double price, double sums) {
+    public BaoSunBean(int goodsid, int color_spec, int pici, int area_id, int gteid, int judge, int id, int status, String colorNum, String colorPicture, String goodsname, String list, String area_number, String metering_name, String metering_abbreviation, String goodsnumber, String goodsspec, String twotypename, double price, double sums,int meteringId) {
         this.goodsid = goodsid;
         this.color_spec = color_spec;
         this.pici = pici;
@@ -52,6 +53,7 @@ public class BaoSunBean {
         this.judge = judge;
         this.id = id;
         this.status = status;
+        this.meteringId = meteringId;
         this.colorNum = colorNum;
         this.colorPicture = colorPicture;
         this.goodsname = goodsname;
@@ -77,6 +79,7 @@ public class BaoSunBean {
                 ", judge=" + judge +
                 ", id=" + id +
                 ", status=" + status +
+                ", meteringId=" + meteringId +
                 ", colorNum='" + colorNum + '\'' +
                 ", colorPicture='" + colorPicture + '\'' +
                 ", goodsname='" + goodsname + '\'' +
@@ -90,6 +93,14 @@ public class BaoSunBean {
                 ", price=" + price +
                 ", sums=" + sums +
                 '}';
+    }
+
+    public int getMeteringId() {
+        return meteringId;
+    }
+
+    public void setMeteringId(int meteringId) {
+        this.meteringId = meteringId;
     }
 
     public int getGoodsid() {

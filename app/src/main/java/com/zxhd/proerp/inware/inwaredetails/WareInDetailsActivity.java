@@ -226,6 +226,7 @@ public class WareInDetailsActivity extends AppCompatActivity {
         paramsMap.put("sums", b);//数量
         paramsMap.put("gteid", bean.getGteid() + "");
         paramsMap.put("pici", bean.getPici() + "");
+        paramsMap.put("meteringId", bean.getMeteringId() + "");
         paramsMap.put("inWarehouse_id", bean.getInWarehouse_id() + "");
         paramsMap.put("judge", bean.getJudge() + "");
         paramsMap.put("repo_name", bean.getRepo_name() + "");
@@ -370,10 +371,11 @@ public class WareInDetailsActivity extends AppCompatActivity {
                         int id = obj.getInt("id");
                         int inWarehouse_id = obj.getInt("inWarehouse_id");
                         int judge = obj.getInt("judge");
+                        int meteringId = obj.getInt("meteringId");
                         int pici = obj.getInt("pici");
                         int respository_id = obj.getInt("respository_id");
                         int status = obj.getInt("status");
-                        WareInDetailsBean wareInDetailsBean = new WareInDetailsBean(cha, cha2, haveReturn, in, price, quantity, sums, colorNum, colorPicture, ep_name, ep_number, ep_spec, metering_abbreviation, metering_name, repo_name, supplier_Name, twotypename, color_spec, endproduct, ep_unit, goodsid, gteid, id, inWarehouse_id, judge, pici, respository_id, status);
+                        WareInDetailsBean wareInDetailsBean = new WareInDetailsBean(cha, cha2, haveReturn, in, price, quantity, sums, colorNum, colorPicture, ep_name, ep_number, ep_spec, metering_abbreviation, metering_name, repo_name, supplier_Name, twotypename, color_spec, endproduct, ep_unit, goodsid, gteid, id, inWarehouse_id, judge, pici, respository_id, status,meteringId);
                         mList.add(wareInDetailsBean);
                     }
                     Message obtain = Message.obtain();

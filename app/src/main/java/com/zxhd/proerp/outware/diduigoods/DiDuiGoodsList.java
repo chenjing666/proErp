@@ -21,17 +21,19 @@ public class DiDuiGoodsList {
     private int gteid;
     private int pici;
     private int area_id;
+    private int meteringId;
     private double sums;
     private String list;
     private String district_number;
     private String area_number;
 
-    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, double sums, String list, String district_number, String area_number,int gteid) {
+    public DiDuiGoodsList(int goodsid, double price, String repo_name, int judge, int id, int pici, int area_id, double sums, String list, String district_number, String area_number,int gteid,int meteringId) {
         this.goodsid = goodsid;
         this.price = price;
         this.repo_name = repo_name;
         this.judge = judge;
         this.id = id;
+        this.meteringId = meteringId;
         this.pici = pici;
         this.area_id = area_id;
         this.sums = sums;
@@ -52,11 +54,20 @@ public class DiDuiGoodsList {
                 ", pici=" + pici +
                 ", area_id=" + area_id +
                 ", sums=" + sums +
+                ", meteringId=" + meteringId +
                 ", list='" + list + '\'' +
                 ", district_number='" + district_number + '\'' +
                 ", area_number='" + area_number + '\'' +
                 ", gteid='" + gteid + '\'' +
                 '}';
+    }
+
+    public int getMeteringId() {
+        return meteringId;
+    }
+
+    public void setMeteringId(int meteringId) {
+        this.meteringId = meteringId;
     }
 
     public int getGteid() {

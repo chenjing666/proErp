@@ -12,6 +12,13 @@
         android:text="出库详情" />
 
     <EditText
+        android:id="@+id/ware_out_employee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="输入或扫描领料人" />
+
+    <EditText
         android:id="@+id/ware_out_remark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,18 +1,22 @@
 package com.zxhd.proerp.cont;
 
 public class Api {
-    //    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
-    public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
+    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
+//    public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
     /**
      * 登录
      */
     public static final String LOGIN = BASE_URL + "login/doLogin";
     /**
+     * 查询所有人员
+     */
+    public static final String GET_ALL_MEMBER = BASE_URL + "QydnEmployeeContrller/queryQydnEmployee";
+    /**
      * 查询出库需求列表
      * 只查询未处理完成的，之前完成的不查
      */
     public static final String OUT_WARE_LIST = BASE_URL + "outwarehouseController/findAllOutwarehouse";
-//    public static final String OUT_WARE_LIST = BASE_URL + "outwarehouseController/findAllOutwarehouseApp";
+
     /**
      * 查询出库需求列表(领料)
      */

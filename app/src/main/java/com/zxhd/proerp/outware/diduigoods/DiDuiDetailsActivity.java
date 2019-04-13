@@ -88,7 +88,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     diDuiGoodsAdapter.bind(mList);
-                    if(mList.size()==0){
+                    if (mList.size() == 0) {
                         Toast.makeText(DiDuiDetailsActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -157,6 +157,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
         paramsMap.put("pici", mData.getPici() + "");
         paramsMap.put("outwarehouse_id", outwarehouse_id);
         paramsMap.put("judge", mData.getJudge() + "");
+        paramsMap.put("meteringId", mData.getMeteringId() + "");
         paramsMap.put("district_number", mData.getDistrict_number());
         paramsMap.put("repo_name", mData.getRepo_name());
         paramsMap.put("goodsid", mData.getGoodsid() + "");
@@ -234,9 +235,10 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
                         int area_id = obj.getInt("area_id");//
                         int id = obj.getInt("id");//
                         int judge = obj.getInt("judge");//
+                        int meteringId = obj.getInt("meteringId");
                         int gteid = obj.getInt("gteid");//
                         double price = obj.getDouble("price");
-                        DiDuiGoodsList diDuiGoodsList = new DiDuiGoodsList(goodsid, price, repo_name, judge, id, pici, area_id, sums, list, district_number, area_number, gteid);
+                        DiDuiGoodsList diDuiGoodsList = new DiDuiGoodsList(goodsid, price, repo_name, judge, id, pici, area_id, sums, list, district_number, area_number, gteid, meteringId);
                         mList.add(diDuiGoodsList);
                     }
                     Message obtain = Message.obtain();

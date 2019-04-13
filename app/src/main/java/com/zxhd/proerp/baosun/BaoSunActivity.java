@@ -235,6 +235,7 @@ public class BaoSunActivity extends AppCompatActivity {
         paramsMap.put("inList", bean.getList());
         paramsMap.put("pici", bean.getPici() + "");
         paramsMap.put("judge", bean.getJudge() + "");
+        paramsMap.put("meteringId", bean.getMeteringId() + "");
         paramsMap.put("area_number", bean.getArea_number());
         paramsMap.put("sums", a + "");
         paramsMap.put("color_spec", bean.getColor_spec() + "");
@@ -327,9 +328,10 @@ public class BaoSunActivity extends AppCompatActivity {
                         int gteid = obj.getInt("gteid");
                         int judge = obj.getInt("judge");
                         int status = obj.getInt("status");
+                        int meteringId = obj.getInt("meteringId");
                         double price = obj.getDouble("price");
                         double sums = obj.getDouble("sums");
-                        BaoSunBean baoSunBean = new BaoSunBean(goodsid, color_spec, pici, area_id, gteid, judge, id, status, colorNum, colorPicture, goodsname, list, area_number2, metering_name, metering_abbreviation, goodsnumber, goodsspec, twotypename, price, sums);
+                        BaoSunBean baoSunBean = new BaoSunBean(goodsid, color_spec, pici, area_id, gteid, judge, id, status, colorNum, colorPicture, goodsname, list, area_number2, metering_name, metering_abbreviation, goodsnumber, goodsspec, twotypename, price, sums, meteringId);
                         mList.add(baoSunBean);
                     }
                     Message obtain = Message.obtain();

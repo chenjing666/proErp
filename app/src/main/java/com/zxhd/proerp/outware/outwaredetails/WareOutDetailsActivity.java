@@ -213,7 +213,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         });
     }
 
-    public void doWareOut(String a) {
+    public void doWareOut(String a, String b) {
         HashMap<String, String> paramsMap = new HashMap<>();
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < mList.size(); i++) {
@@ -235,6 +235,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 object.put("waitnumber", mData.getWaitnumber());
                 object.put("cha2", mData.getCha2());
                 object.put("cha", mData.getCha());
+                paramsMap.put("meteringId", mData.getMeteringId() + "");
                 object.put("outsum", mData.getWareoutnum());
                 object.put("lists", mData.getWareoutremark());
                 jsonArray.put(object);
@@ -245,6 +246,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         }
         paramsMap.put("IDS", jsonArray.toString());
         paramsMap.put("remark", a);
+        paramsMap.put("employeeNumber", b);
         paramsMap.put("outwarehouse_id", outwarehouse_id + "");
         paramsMap.put("list_type", list_type + "");
         paramsMap.put("respository_id", respository_id + "");
@@ -290,6 +292,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         TextView textView = view.findViewById(R.id.ware_out_s);
         textView.setText(aa);
         final EditText ware_out_remark = view.findViewById(R.id.ware_out_remark);
+        final EditText ware_out_employee = view.findViewById(R.id.ware_out_employee);
 
         builder.setPositiveButton("确定", null);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -304,7 +307,8 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
             @Override
             public void onClick(View v) {
                 String a = ware_out_remark.getText().toString().trim();
-                doWareOut(a);
+                String b = ware_out_employee.getText().toString().trim();
+                doWareOut(a, b);
             }
         });
     }
@@ -486,9 +490,10 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                         double haveout = obj.getDouble("haveout");
                         int goodsid = obj.getInt("goodsid");
                         int color_spec = obj.getInt("color_spec");
+                        int meteringId = obj.getInt("meteringId");
                         double cha = obj.getDouble("cha");
                         double cha2 = obj.getDouble("cha2");
-                        WareOutDetailsList wareOutDetailsList = new WareOutDetailsList(id, goodsnumber, goodsname, judge, twotypename, goodsspec, colorNum, metering_name, metering_abbreviation, outnumber, downnumber, haveout, goodsid, color_spec, cha, 0, "", waitnumber, cha2);
+                        WareOutDetailsList wareOutDetailsList = new WareOutDetailsList(id, goodsnumber, goodsname, judge, twotypename, goodsspec, colorNum, metering_name, metering_abbreviation, outnumber, downnumber, haveout, goodsid, color_spec, cha, 0, "", waitnumber, cha2, meteringId);
                         mList.add(wareOutDetailsList);
                     }
                     Message obtain = Message.obtain();
@@ -504,6 +509,9 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     @Override
     public void SaveNum(int position, String string) {
         //回调处理edittext内容，使用map的好处在于：position确定的情况下，string改变，只会动态改变string内容
+        if (string.isEmpty()) {
+            string = 0 + "";
+        }
         mList.get(position).setWareoutnum(Double.parseDouble(string));
     }
 
