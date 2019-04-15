@@ -144,6 +144,8 @@ public class LingLiaoActivity extends AppCompatActivity {
                         intent.putExtra("respository_id", mList.get(0).getRespository_id());
                         intent.putExtra("state", mList.get(0).getState());
                         intent.putExtra("list_type", mList.get(0).getLl_type());
+                        isScan = false;
+                        searchNum = "";
                         startActivity(intent);
                     } else {
                         wareOutAdapter.bind(mList);

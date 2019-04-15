@@ -1,8 +1,8 @@
 package com.zxhd.proerp.cont;
 
 public class Api {
-    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
-//    public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
+//    public static final String BASE_URL = "http://192.168.0.36:8088/lfcPro/";
+    public static final String BASE_URL = "http://101.132.46.8:8088/lfcPro/";
     /**
      * 登录
      */

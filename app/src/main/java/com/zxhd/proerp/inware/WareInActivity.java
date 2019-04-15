@@ -133,6 +133,8 @@ public class WareInActivity extends AppCompatActivity {
                         intent.putExtra("id", bean.getId());
                         intent.putExtra("respository_id", bean.getRespository_id());
                         intent.putExtra("name", bean.getRespository_name());
+                        isScan = false;
+                        searchNum = "";
                         startActivity(intent);
                     } else {
                         wareInAdapter.bind(mList);

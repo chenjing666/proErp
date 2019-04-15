@@ -123,10 +123,12 @@ public class WareOutActivity extends AppCompatActivity {
                         intent.putExtra("respository_id", mList.get(0).getRespository_id());
                         intent.putExtra("state", mList.get(0).getState());
                         intent.putExtra("list_type", mList.get(0).getLl_type());
+                        isScan = false;
+                        searchNum = "";
                         startActivity(intent);
                     } else {
                         wareOutAdapter.bind(mList);
-                        if(mList.size()==0){
+                        if (mList.size() == 0) {
                             Toast.makeText(WareOutActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -134,7 +136,7 @@ public class WareOutActivity extends AppCompatActivity {
                 case 1:
                     Bundle bundle = msg.getData();
                     String theCode = bundle.getString("scannerdata");
-                    Log.e("theCode","theCode"+theCode);
+                    Log.e("theCode", "theCode" + theCode);
                     if (!theCode.isEmpty()) {
                         //接收到条码，执行搜索
                         getMList(theCode);
@@ -153,12 +155,14 @@ public class WareOutActivity extends AppCompatActivity {
         registerReceiver(mReceiver, filter);
         getMList("");
     }
+
     @Override
     protected void onPause() {
         // 卸载接收器
         unregisterReceiver(mReceiver);
         super.onPause();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
