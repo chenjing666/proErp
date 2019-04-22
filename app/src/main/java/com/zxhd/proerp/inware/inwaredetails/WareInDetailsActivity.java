@@ -111,7 +111,7 @@ public class WareInDetailsActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     wareInDetailsAdapter.bind(mList);
-                    if(mList.size()==0){
+                    if (mList.size() == 0) {
                         Toast.makeText(WareInDetailsActivity.this, "暂无数据！", Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -220,7 +220,7 @@ public class WareInDetailsActivity extends AppCompatActivity {
     }
 
     private void doUpGoods(String a, String b) {
-        a= WordHandle.getWord(a.trim(),WordHandle.regEx_num);
+        a = WordHandle.getWord(a.trim(), WordHandle.regEx_num);
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("area_id", "cw" + a);//地堆
         paramsMap.put("sums", b);//数量
@@ -269,14 +269,15 @@ public class WareInDetailsActivity extends AppCompatActivity {
                 Toast.makeText(WareInDetailsActivity.this, "已经上架完成！", Toast.LENGTH_LONG).show();
                 return;
             }
-            getArea(bean.getGoodsid() + "", bean.getJudge() + "");
+            getArea(bean.getGoodsid() + "", bean.getJudge() + "", bean.getColor_spec() + "");
         }
     };
 
-    private void getArea(String goodsid, String judge) {
+    private void getArea(String goodsid, String judge, String color_spec) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("goodsid", goodsid);
         paramsMap.put("judge", judge);
+        paramsMap.put("color_spec", color_spec);
         OkhttpUtil.okHttpPost(Api.GOODS_WARE_IN_ARRIVAL_DETAILS_DIDUI_RECOMEMEND, paramsMap, new CallBackUtil.CallBackString() {
             @Override
             public void onFailure(Call call, Exception e) {
@@ -375,7 +376,7 @@ public class WareInDetailsActivity extends AppCompatActivity {
                         int pici = obj.getInt("pici");
                         int respository_id = obj.getInt("respository_id");
                         int status = obj.getInt("status");
-                        WareInDetailsBean wareInDetailsBean = new WareInDetailsBean(cha, cha2, haveReturn, in, price, quantity, sums, colorNum, colorPicture, ep_name, ep_number, ep_spec, metering_abbreviation, metering_name, repo_name, supplier_Name, twotypename, color_spec, endproduct, ep_unit, goodsid, gteid, id, inWarehouse_id, judge, pici, respository_id, status,meteringId);
+                        WareInDetailsBean wareInDetailsBean = new WareInDetailsBean(cha, cha2, haveReturn, in, price, quantity, sums, colorNum, colorPicture, ep_name, ep_number, ep_spec, metering_abbreviation, metering_name, repo_name, supplier_Name, twotypename, color_spec, endproduct, ep_unit, goodsid, gteid, id, inWarehouse_id, judge, pici, respository_id, status, meteringId);
                         mList.add(wareInDetailsBean);
                     }
                     Message obtain = Message.obtain();
