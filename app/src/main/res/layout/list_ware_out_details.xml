@@ -211,6 +211,7 @@
             android:id="@+id/num_ware_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
             android:hint="输入本次出库数量" />
     </LinearLayout>
 

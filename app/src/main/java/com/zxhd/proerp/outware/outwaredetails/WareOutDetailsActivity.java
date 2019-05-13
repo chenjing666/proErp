@@ -69,7 +69,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     private String person_id;
     private int list_type;
     private String aa;
-    private AlertDialog alertDialog;
+    private AlertDialog alertDialog = null;
     /**
      * 扫描
      */
@@ -81,6 +81,9 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
     public static final String scan_data = "scannerdata";
     private IntentFilter filter;
     private EditText ware_out_employee;
+    private AlertDialog alertDialog_end = null;
+    private AlertDialog dialog = null;
+    private EditText details_didui;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,10 +139,12 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 aa = "";
                 for (int i = 0; i < mList.size(); i++) {
                     mData = mList.get(i);
-                    if (mList.get(i).getWareoutnum() == 0) {
-                        break;
+                    if (mData.getWareoutnum() == 0) {
+                        Log.e("mList=", "mList000");
+                    } else {
+                        aa = aa + "产品编码：" + mData.getGoodsnumber() + "产品名称：" + mData.getGoodsname() + "出库数量：" + mData.getWareoutnum() + "备注：" + mData.getWareoutremark() + "\n";
                     }
-                    aa = aa + "产品编码：" + mData.getGoodsnumber() + "产品名称：" + mData.getGoodsname() + "出库数量：" + mData.getWareoutnum() + "备注：" + mData.getWareoutremark() + "\n";
+
                 }
                 if (aa.isEmpty()) {
                     Toast.makeText(WareOutDetailsActivity.this, "请输入出库信息！", Toast.LENGTH_LONG).show();
@@ -176,9 +181,11 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 case 2:
                     Bundle bundle = msg.getData();
                     String theCode = bundle.getString("scannerdata");
+                    Log.e("theCode==", "theCode:" + theCode);
                     if (!theCode.isEmpty()) {
-                        //接收到条码，执行搜索
-                        if (alertDialog.isShowing()) {
+                        if (dialog != null && dialog.isShowing()) {
+                            details_didui.setText(theCode.trim());
+                        } else if (alertDialog != null && alertDialog.isShowing()) {
                             ware_out_employee.setText(theCode.trim());
                         }
                     }
@@ -196,12 +203,14 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         registerReceiver(mReceiver, filter);
         getMList();
     }
+
     @Override
     protected void onPause() {
         // 卸载接收器
         unregisterReceiver(mReceiver);
         super.onPause();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -230,6 +239,11 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         super.onDestroy();
     }
 
+    /**
+     * 结束出库
+     *
+     * @param a
+     */
     private void doBreakWareOut(String a) {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("id", outwarehouse_id + "");
@@ -249,7 +263,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                     String result = object.getString("result");
                     Toast.makeText(WareOutDetailsActivity.this, msg, Toast.LENGTH_SHORT).show();
                     if (result.equals("ok")) {
-                        alertDialog.dismiss();
+                        alertDialog_end.dismiss();
                         finish();
                     }
                 } catch (JSONException e) {
@@ -279,9 +293,9 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 Toast.makeText(WareOutDetailsActivity.this, "点击了取消！", Toast.LENGTH_SHORT).show();
             }
         });
-        alertDialog = builder.create();
-        alertDialog.show();//必须加这句，不然后面会报空指针错误
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        alertDialog_end = builder.create();
+        alertDialog_end.show();//必须加这句，不然后面会报空指针错误
+        alertDialog_end.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String a = ware_out_over_remark.getText().toString().trim();
@@ -403,7 +417,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
         builder.setView(view);
         TextView textView = view.findViewById(R.id.details_didui);
         textView.setText(msg);
-        final EditText details_didui = view.findViewById(R.id.num_didui);
+        details_didui = view.findViewById(R.id.num_didui);
 
         builder.setPositiveButton("确定", null);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -413,7 +427,7 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
             }
         });
 //        builder.show();
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();//必须加这句，不然后面会报空指针错误
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
