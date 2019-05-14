@@ -326,9 +326,9 @@ public class WareOutDetailsActivity extends AppCompatActivity implements WareOut
                 object.put("waitnumber", mData.getWaitnumber());
                 object.put("cha2", mData.getCha2());
                 object.put("cha", mData.getCha());
-                paramsMap.put("meteringId", mData.getMeteringId() + "");
+                object.put("meteringId", mData.getMeteringId() + "");
                 object.put("outsum", mData.getWareoutnum());
-                object.put("lists", mData.getWareoutremark());
+                object.put("lists","rk"+ mData.getWareoutremark());
                 jsonArray.put(object);
             } catch (JSONException e) {
                 e.printStackTrace();

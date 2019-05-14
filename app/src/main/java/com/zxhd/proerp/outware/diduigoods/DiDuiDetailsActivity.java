@@ -48,7 +48,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
     private double outnumber;
     private DiDuiGoodsList mData;
     private AlertDialog dialog;
-    private int b;
+    private double b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,7 @@ public class DiDuiDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String a = details_didui.getText().toString().trim();
-                b = Integer.parseInt(a);
+                b = Double.parseDouble(a);
                 if (a.isEmpty() || b == 0) {
                     Toast.makeText(DiDuiDetailsActivity.this, "请输入合理数量！", Toast.LENGTH_SHORT).show();
                     return;
